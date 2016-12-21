@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="StoryTour">
+<head>
+<base href="/">
+<meta charset="UTF-8">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StoryTour - Trial v1.1</title>
+
+<!-- Polyfill.io -->
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+
+<!--[if IE]>
+https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js
+<![endif]-->
+
+<!-- build:css css/storytour.min.css -->
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/storytour.css">
+<link rel="stylesheet" href="css/VCO.StoryMap.css">
+<!-- endbuild -->
+
+<!-- Latest compiled and minified angularJS -->
+<script type="text/javascript" src="js/angular/angular.js"></script>
+<script type="text/javascript" src="js/angular/angular-route.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-animate.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-cookies.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-local-storage.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-translate.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-translate-loader-partial.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-translate-loader-static-files.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-translate-storage-cookie.min.js"></script>
+<script type="text/javascript" src="js/angular/angular-translate-storage-local.min.js"></script>
+<script type="text/javascript" src="js/angular/tmhDynamicLocale.js"></script>
+
+<!-- build:js js/storytour/storytour.min.js -->
+<script type="text/javascript" src="js/storytour/storytour.js"></script>
+<!-- endbuild -->
+
+<!-- build:js js/app.min.js -->
+<script type="text/javascript" src="js/app/config.js"></script>
+<script type="text/javascript" src="js/app/app.js"></script>
+<!-- endbuild -->
+
+</head>
+
+<body>
+<div ui-view class="uiViewBody"></div>
+</body>
+</html>
