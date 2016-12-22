@@ -200,7 +200,7 @@
 			}
 		},
 		
-		htmlify: function(str) {
+		htmlify: function(str, attr, value) {
 			//if (str.match(/<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/)) {
 			if (VCO.Browser.chrome) {
 				str = VCO.Emoji(str);
@@ -209,7 +209,13 @@
 				
 				return str;
 			} else {
-				return "<p>" + str + "</p>";
+				if(attr){
+					return "<p " + attr + ">" + value + "</p>";
+				}
+				else {
+					return "<p" + str + "</p>";
+				}
+				
 			}
 		},
 		
@@ -6263,7 +6269,7 @@
 			if (this.data.text != "") {
 				var text_content = "";
 				
-				text_content 					+= VCO.Util.htmlify(this.data.text);
+				text_content 					+= VCO.Util.htmlify(this.data.text, "translate", "TEST_PARAGRAPH");
 				
 				// Date
 				if (this.data.date && this.data.date.created_time && this.data.date.created_time != "") {
@@ -6987,7 +6993,6 @@
 		},
 		
 		loadMedia: function() {
-			
 			if (this._media && !this._state.loaded) {
 				this._media.loadMedia();
 				this._state.loaded = true;
@@ -7088,6 +7093,8 @@
 			if (this.has.text || this.has.headline) {
 				this._text = new VCO.Media.Text(this.data.text, {title:this.has.title});
 			}
+	
+			console.log("Text Created");
 			
 			// Add to DOM
 			if (!this.has.text && !this.has.headline && this.has.media) {
@@ -19218,12 +19225,12 @@ VCO.StoryMap = VCO.Class.extend({
 			this._map.goTo(this.current_slide);
 			this.slideChange();
 			this.fire("change", {current_slide: this.current_slide}, this);
-			ga('send', {
-			  hitType: 'event',
-			  eventCategory: (window.location.href.substr(window.location.href.lastIndexOf('/') + 1)) + ' slides',
-			  eventAction: 'changed',
-			  eventLabel: e.target.data.slides[e.current_slide].text.headline
-			});
+			// ga('send', {
+			//   hitType: 'event',
+			//   eventCategory: (window.location.href.substr(window.location.href.lastIndexOf('/') + 1)) + ' slides',
+			//   eventAction: 'changed',
+			//   eventLabel: e.target.data.slides[e.current_slide].text.headline
+			// });
 		}
 	},
 

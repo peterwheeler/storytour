@@ -128,7 +128,6 @@ VCO.Slide = VCO.Class.extend({
 	},
 	
 	loadMedia: function() {
-		
 		if (this._media && !this._state.loaded) {
 			this._media.loadMedia();
 			this._state.loaded = true;
@@ -229,6 +228,8 @@ VCO.Slide = VCO.Class.extend({
 		if (this.has.text || this.has.headline) {
 			this._text = new VCO.Media.Text(this.data.text, {title:this.has.title});
 		}
+
+		console.log("Text Created");
 		
 		// Add to DOM
 		if (!this.has.text && !this.has.headline && this.has.media) {

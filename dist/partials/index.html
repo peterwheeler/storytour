@@ -1,0 +1,61 @@
+    <ul id="slide-out" class="side-nav" style="transform: translateX(-100%);">
+        <div class="close-slide-out">
+            <a ng-href="#" data-activates="slide-out" class="show-on-small">
+                <i class="material-icons new-medium">&#xE315;</i>
+            </a>
+        </div>
+        <div class="menu-header">
+            <a ui-sref="app" class="brand-logo center logo-container">
+                <h3 class="center">{{'HOMEPAGE.TITLE' | translate}}</h3>
+            </a>
+        </div>
+        <li>
+            <div class="divider" style="margin: 15px 0px;"></div>
+        </li>
+        <li class="bold"><a ui-sref="about" class="about-link waves-effect waves-teal"><i class="material-icons">&#xE88F;</i>{{'MENU.ABOUT' | translate}}</a></li>
+        <ul class="collapsible collapsible-accordion">
+            <li class="bold"><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">language</i>{{'MENU.SELECTALANG' | translate}}</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li ng-repeat="country in region.countries()">
+                            <a ng-href="/{{country.language}}/{{remainingUrl(country.language)}}" tooltip="{{country.languageLabel() | translate}}">{{country.languageLabel() | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="divider" style="margin: 0px;"></div>
+            </li>
+            <li class="bold active"><a class="collapsible-header waves-effect waves-teal active"><i class="material-icons">&#xE865;</i>{{'MENU.SELECTATOUR' | translate}}</a>
+                <div class="collapsible-body">
+                    <ul>
+                        <li>
+                            <a ng-href="{{urlBegin()}}/{{localizedPage(0)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.CLAUDIAN' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-href="{{urlBegin()}}/{{localizedPage(1)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.TRAJANIC' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-href="{{urlBegin()}}/{{localizedPage(2)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.SEVERAN' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-href="{{urlBegin()}}/{{localizedPage(3)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.FIFTHSEVENTH' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-href="{{urlBegin()}}/{{localizedPage(4)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.MODERN' | translate}}</a>
+                        </li>
+                        <div class="divider" style="margin: 0px;"></div>
+                        <li>
+                            <a ng-href="{{urlBegin()}}/{{localizedPage(5)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.TIMELINE' | translate}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </ul>
+    <div class="menu-opener">
+        <a ng-href="#" data-activates="slide-out" class="menu-collapse show-on-small" onclick="changeLanguage('en')">
+        <i class="material-icons new-medium overlay-toggle btn-open">&#xE5D2;</i>
+        </a>
+    </div>
+    <ui-view/>

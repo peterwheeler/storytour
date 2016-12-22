@@ -8,13 +8,15 @@ var tour = {};
 tour.languages = [ 
 	{
 		name: "English",
-		id: "en-gb",
-		url: "en"
+		id: "en-gb"
+	},
+	{
+		name: "Español",
+		id: "es-es",
 	},
 	{
 		name: "Italiano",
 		id: "it-it",
-		url: "it"
 	}
 ];
 
@@ -99,21 +101,4 @@ tour.maps = [
 // Translations for each language used in the site.
 // First in list is considered the preferred language.
 // Copy and paste section below and create new translation. Do not change keys of object.
-
-tour.translations = {
-		"en": {
-			"TEST_PARAGRAPH": "Hello World",
-			"PREFIX": "en",
-			"NAME_EN": "English",
-			"NAME_ES": "Spanish",			
-			"HOME": {
-				"TITLE": "",
-				"PARAGRAGH": ""
-			},
-			"ABOUT": {
-				"HEADLINE": "",
-				"TEXT": ""
-			}
-		}
-};
 

@@ -803,12 +803,12 @@ VCO.StoryMap = VCO.Class.extend({
 			this._map.goTo(this.current_slide);
 			this.slideChange();
 			this.fire("change", {current_slide: this.current_slide}, this);
-			ga('send', {
-			  hitType: 'event',
-			  eventCategory: (window.location.href.substr(window.location.href.lastIndexOf('/') + 1)) + ' slides',
-			  eventAction: 'changed',
-			  eventLabel: e.target.data.slides[e.current_slide].text.headline
-			});
+			// ga('send', {
+			//   hitType: 'event',
+			//   eventCategory: (window.location.href.substr(window.location.href.lastIndexOf('/') + 1)) + ' slides',
+			//   eventAction: 'changed',
+			//   eventLabel: e.target.data.slides[e.current_slide].text.headline
+			// });
 		}
 	},
 

@@ -4,15 +4,15 @@
 
 <!-- <div class="container"> -->
 <div class="body-content">
-  <h1 class="body-header center">{{'HOMEPAGE.TITLE' | translate}}</h1>
+  <h1 class="body-header center">{{'TITLE' | translate}}</h1>
   <div class="row center">
-    <h4 class="header col s12 light center">{{'HOMEPAGE.HEADLINE' | translate}}</h4>
+    <h4 class="header col s12 light center">{{'HEADLINE' | translate}}</h4>
   </div>
   <div class="row center">
-    <a ng-href="{{urlBegin()}}/{{localizedPage(0)}}" class="btn-large waves-effect waves-light #b2dfdb lighten-4">{{'HOMEPAGE.START' | translate}}</a>
+    <a ui-sref="app.tour" class="btn-large waves-effect waves-light #b2dfdb lighten-4">{{'HOMEPAGE.START' | translate}}</a>
   </div>
   <div class="row center">
- 	<a class="body-text text-lighten-4" ng-href="{{urlBegin()}}/about">{{'HOMEPAGE.ABOUT' | translate}}</a>
+ 	<a class="body-text text-lighten-4" ui-sref="app.about">{{'HOMEPAGE.ABOUT' | translate}}</a>
   </div>
 </div>
 <!-- </div> -->
