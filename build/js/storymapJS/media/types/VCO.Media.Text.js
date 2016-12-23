@@ -109,7 +109,7 @@ VCO.Media.Text = VCO.Class.extend({
 		if (this.data.text != "") {
 			var text_content = "";
 			
-			text_content 					+= VCO.Util.htmlify(this.data.text, "translate", "TEST_PARAGRAPH");
+			text_content 					+= VCO.Util.htmlify(this.data.text, "translate");
 			
 			// Date
 			if (this.data.date && this.data.date.created_time && this.data.date.created_time != "") {

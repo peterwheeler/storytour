@@ -144,7 +144,7 @@ VCO.Util = {
 		}
 	},
 	
-	htmlify: function(str, attr, value) {
+	htmlify: function(str, attr) {
 		//if (str.match(/<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/)) {
 		if (VCO.Browser.chrome) {
 			str = VCO.Emoji(str);
@@ -154,7 +154,7 @@ VCO.Util = {
 			return str;
 		} else {
 			if(attr){
-				return "<p " + attr + ">" + value + "</p>";
+				return "<p " + attr + ">" + str + "</p>";
 			}
 			else {
 				return "<p" + str + "</p>";

@@ -56,6 +56,11 @@ gulp.task("checkHTML", function() {
     .pipe(gulp.dest("./dist/"));
 });
 
+gulp.task("checkPartials", function() {
+  gulp.src("./build/partials/*.html")
+    .pipe(gulp.dest("./dist/partials/"));
+});
+
 gulp.task("useref", function() {
     return gulp.src("./build/*.html")
 	    .pipe(useref())
@@ -69,7 +74,7 @@ gulp.task("useref", function() {
 });
 
 // Static server
-gulp.task("serve", ["less-scripts", "storytour", "angular-scripts", "config-script", "app-script", "checkHTML"], function() {
+gulp.task("serve", ["less-scripts", "storytour", "angular-scripts", "config-script", "app-script", "checkHTML", "checkPartials"], function() {
         browserSync.init({
             server:{
                 baseDir: ["./", "./dist"]
@@ -81,7 +86,7 @@ gulp.task("serve", ["less-scripts", "storytour", "angular-scripts", "config-scri
     gulp.watch("./build/less/**/*.less", ["less-scripts"]);
     gulp.watch("./build/js/**/*.js", ["js-watch"]);
     gulp.watch("./build/js/**/*.js").on("change", browserSync.reload);
-    gulp.watch("./build/*.html", ["checkHTML"]);
+    gulp.watch("./build/*.html", ["checkHTML", "checkPartials"]);
     gulp.watch("./dist/*.html").on("change", browserSync.reload);
 });
 

@@ -177,11 +177,15 @@ function translateFactory($http, $q){
 	}
 };
 
-function mapsFactory($http, $q){
-    var storyslider = new VCO.StorySlider("storytour", "json/period_2.json")
+function mapsFactory($state, $stateParams, $http, $q){
+//     var storyslider = new VCO.StorySlider("storytour")
     return {
-        storyslider
+        $state
     }
+};
+
+function mapsService($state, $stateParams, $http, $q){
+    VCO.StorySlider("storytour", "json/periodo_2.json")
 };
 
 function runCtrl($rootScope, $translate, tmhDynamicLocale, $location, $stateParams, $state){
@@ -250,7 +254,7 @@ function tourCtrl($scope, $location, $stateParams, $translatePartialLoader, $tra
 	$translate.refresh();
 };
 
-function mapsCtrl($scope, $location, $stateParams, $translatePartialLoader, $translate, mapsFactory){
+function mapsCtrl($scope, $location, $stateParams, $translatePartialLoader, $translate, mapsFactory, mapsService){
 
 	$translatePartialLoader.addPart('maps');
 	$translate.refresh();
@@ -260,8 +264,7 @@ function mapsCtrl($scope, $location, $stateParams, $translatePartialLoader, $tra
 		$translate.refresh();
 	};
 
-    console.log("asdasdads");
-    console.log(mapsFactory);
+    console.log(mapsService);
 };
 
 function mapsDirective(){
@@ -333,7 +336,10 @@ angular.module(appConfig.appName).factory("translateFactory", translateFactory),
 translateFactory.$inject = ["$http", "$q"],
 
 angular.module(appConfig.appName + ".tour").factory("mapsFactory", mapsFactory),
-mapsFactory.$inject = ["$http", "$q"],
+mapsFactory.$inject = ["$state", "$stateParams", "$http", "$q"],
+
+angular.module(appConfig.appName + ".tour").service("mapsService", mapsService),
+mapsService.$inject = ["$state", "$stateParams", "$http", "$q"],
 
 angular.module(appConfig.appName).run(runCtrl),
 runCtrl.$inject = ["$rootScope", "$translate", "tmhDynamicLocale", "$location", "$stateParams", "$state"]
@@ -348,7 +354,7 @@ angular.module(appConfig.appName + ".tour").controller("tourCtrl", tourCtrl),
 tourCtrl.$inject = ["$scope", "$location", "$stateParams", "$translatePartialLoader", "$translate"],
 
 angular.module(appConfig.appName + ".tour").controller("mapsCtrl", mapsCtrl),
-mapsCtrl.$inject = ["$scope", "$location", "$stateParams", "$translatePartialLoader", "$translate", "mapsFactory"],
+mapsCtrl.$inject = ["$scope", "$location", "$stateParams", "$translatePartialLoader", "$translate", "mapsFactory", "mapsService"],
 
 angular.module(appConfig.appName + ".tour").directive("mapsDirective", mapsDirective)
 

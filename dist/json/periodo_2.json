@@ -1,0 +1,388 @@
+{
+     "storymap": {
+		"slides": [
+            {
+                "text": {
+                    "headline": "Il Periodo Traianeo",
+                    "text": "Mentre nel periodo Claudio (I secolo d.C.) si vede l'emergere di Portus, in questa seconda fase dominata dagli investimenti effettuati dall'Imperatore Traiano, lo vediamo raggiungere la sua massima estensione.<br/><br/>Sotto l'Imperatore Traiano, probabilmente nel periodo compreso tra il 110-117 d.C., il porto esistente viene ampliato con la creazione di un bacino esagonale ad est del precedente bacino di Claudio. Il bacino esagonale era circondato da una serie di edifici nuovi importanti, tra cui un tempio e il recinto; il Palazzo Imperiale e gli edifici amministrativi associati; un possibile cantiere e molti magazzini.<br/><br/>Le aree che erano state fondate sotto Claudio e Nerone vengono ricostruite. Questo complesso portuale allargato era collegato al Tevere tramite un nuovo canale, e a Roma da un prolungamento della Via Campana/Portuense. Allo stesso modo, il suo collegamento con Ostia è stato migliorato tramite la creazione di un nuovo canale in direzione sud attraverso l'Isola Sacra."
+                },
+                "location": {
+                    "name": "location",
+                    "image": "images/tiny_icon.png",
+                    "icon_size": 1,
+                    "lat": 41.7786,
+                    "lon": 12.2582,
+                    "zoom": 14,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/trajanic.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Vista aerea del grande bacino esagonale costruito dall’Imperatore Traiano"
+                }
+            },
+            {
+                "text": {
+                    "headline": "Il Faro",
+                    "text": "Il Faro (Pharos), costruito durante il regno di Claudio, continua a dominare l'ingresso di Portus nella fase traianea, nonostante la vista dal faro sia nettamente cambiata. Nel periodo claudio, il paesaggio visibile era formato, presumibilmente, da magazzini e altri edifici in una posizione arretrata rispetto alla banchina claudia. Questi edifici sarebbero stati demoliti dal progetto di costruzione iniziato da Traiano, che prevedeva lo scavo del grande bacino di Traiano, circondato da alcuni edifici maestosi in una scala che invitava al confronto diretto con la Roma Imperiale."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.775109,
+                    "lon": 12.234263,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_1/mosaic_ostia.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Immagine del Pharos a Portus in un mosaico ritrovato a Ostia"
+                }
+            },
+            {
+                "text": {
+                    "headline": "Il Bacino di Claudio",
+                    "text": "Durante la fase di Traiano, il bacino di Claudio dovrebbe aver continuato ad essere pieno di navi. Sappiamo ancora molto poco sulla funzione dei bacini portuali e su come fossero connessi l'uno all'altro. Presumibilmente, il bacino di Claudio, il bacino di Traiano e la Darsena, insieme alla parte del Tevere a Ostia a sud, avrebbero servito a diversi tipi di trasporto e avrebbe anche permesso il controllo delle diverse fasi della gestione dei beni. É possibile che le grandi navi che trasportavano il grano dal Nord Africa e dall'Egitto ormeggiassero temporaneamente protette dal  bacino esterno, fino all’assegnazione di un posto lungo le banchine che delimitavano i Grandi Magazzini di Traiano e il Portico di Claudio, mentre quelle che trasportano altri beni avrebbero ormeggiato nel bacino traianeo."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.778086,
+                    "lon": 12.246366,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/claudian_basin.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": ""
+                }
+            },
+            {
+                "text": {
+                    "headline": "Il Monte Giulio",
+                    "text": "Questa zona si trova immediatamente alle spalle della banchina orientale del bacino di Claudio e presenta una serie di grandi edifici rettangolari interpretati come magazzini, bagni e una cisterna d'acqua. Nonostante la cisterna sia stata scavata, non si conosce nulla della sua cronologia."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.784614,
+                    "lon": 12.259240,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/monte_giulio.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Resti della cisterna traianea nell’area di Monte Giulio"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Il Portico di Claudio",
+                    "text": "Dal regno di Traiano in poi, lo spazio coperto tra il Portico e i magazzini è stato ulteriormente sviluppato con la costruzione di una serie di strutture che hanno riempito lo spazio tra i colonnati."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.775539,
+                    "lon": 12.253945,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/portico_di_claudia.jpg",
+                    "credit": "Daniel Gonzales",
+                    "caption": "Vista della via colonnata del Portico di Claudio, guardando a oriente."
+                }
+            },
+			{
+                "text": {
+                    "headline": "I Grandi Magazzini Traiani",
+                    "text": "Sul lato nord della Darsena si trova un complesso di magazzini enormi: i Grandi Magazzini di Traiano. Costruiti durante il regno dell'Imperatore Traiano, probabilmente su magazzini precedenti, sono stati ampiamente sviluppati sotto gli Antonini e sotto il regno di Settimio Severo. É possibile che siano stati utilizzati per lo stoccaggio del grano."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.776507,
+                    "lon": 12.254262,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/magazzini_traiani.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": ""
+                }
+            },
+			{
+                "text": {
+                    "headline": "La Darsena",
+                    "text": "Questo bacino ha continuato a svolgere un ruolo importante nell’allargamento del porto traianeo, anche in seguito della costruzione dei Grandi Magazzini di Traiano."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.776654,
+                    "lon": 12.256054,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_1/darsena.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Vista l'ingresso alla Darsena"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Le Terme della Lanterna",
+                    "text": "Questa serie di bagni, situati sul molo interno est-ovest che separa il bacino claudio dal canale di ingresso al bacino di Traiano, hanno continuato ad essere in uso anche nel periodo tardoantico.<br/><br/>Il complesso termale (circa 40 m per 30 m) era composto da camere a volta in mattoni a faccia a vista. La struttura è stata scavata inizialmente nel 1824, quando il rivestimento in marmo è stato rimosso. Lo scavo sitermatico è attualmente in corso da parte della Soprintendenza Speciale per il Colosseo, il Museo Nazionale Romano e l’Area Archeologica di Roma (Renato Sebastiani)."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.778345,
+                    "lon": 12.255512,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/terme_della_lanterna.jpg",
+                    "credit": "Stephen Kay / BSR & Portus Project",
+                    "caption": "Vista aerea dei Bagni della Lanterna  usando un UAV (drone). Queste fotografie sono state usate per documentare digitalmente il sito"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Grandi Magazzini di Settimio Severo",
+                    "text": "I Grandi Magazzini di Settimio Severo formavano un grande complesso, tradizionalmente identificato come un magazzino costituito da almeno due piani e situato in modo da affacciarsi sul bacino del porto a sud, il bacino di Traiano a est e il bacino di Claudio a nord. L'edificio era stato identificato come un magazzino di epoca severiana (horreum), ma uno studio più recente dei bolli laterizi indica una data Antonina"
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.779502,
+                    "lon": 12.257330,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/magazzini.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Vista delle stanze dei Grandi Magazzini di Settimio Severo"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Il Palazzo Imperiale",
+                    "text": "Il grande complesso amministrativo a tre piani, costruito sotto Traiano nel cuore del porto, si affaccia sui bacini di Claudio e di Traiano. La superstite Terrazza di Traiano era la facciata colonnata monumentale occidentale rivolta verso il Palazzo.<br/><br/>Il Palazzo Imperiale era una struttura in cemento ad opera mista che ricopriva quasi tre ettari. Dei suoi tre piani originali, rimangono solo le sottostrutture e alcune parti del primo piano. La pianta trapezoidale del Palazzo era stata dettata dalla istmo di terra che si trova tra i due bacini in cui è stato situato.<br/><br/>La struttura è stata di notevole interesse dal XVI° secolo a causa della scoperta di numerose colonne, sculture e iscrizioni. Il complesso contiene anche un bagno privato nell’angolo sud-ovest. I bolli laterizi presenti nell'edificio indicano che si tratta di una costruzione prevalentemente di Traiano con successive ristrutturazioni intraprese da Adriano e dagli Antonini. La posizione dell'edificio, nonché la prova della sua ricca decorazione marmorea suggeriscono che fosse, presumibilmente, la sede di un funzionario di alto rango o potenzialmente dell'imperatore stesso.<br/><br/>All'interno del complesso, diversi vani presenti lungo la facciata nord sono stati scavati tra il 2007 e il 2014 nell'ambito del Portus Project.<br/><br/>a) a.Castellum Aquae (Edificio 1):<br/>Una cisterna in mattoni a tre piani, castellum aquae, risalente al tardo periodo traianeo-adriano. Il lato nord della cisterna poggiava sul molo pre-traianeo che delineava il bacino di Claudio e su una molo di Traiano a sud.<br/><br/>b) Edificio 3:<br/> Un'altra parte del Palazzo Imperiale, formata una stanza molto lunga (Edificio 3) che confinava un grande complesso di camere attorno a una cisterna/peristilio (Building 8), si trovava immediatamente a ovest del castellum aquae. Al centro della  stanza si trovava uno spazio aperto attorno al quale correva un portico su tre piani; le basi dei pilastri che sostenevano le volte si vedono ancora chiaramente. <br/> La stanza aveva un pavimento in opus spicatum (con i mattoni a spina di pesce), tipico delle aree destinate a qualche tipo lavorazione o delle aree di servizio in edifici importanti come questo. Nei primi anni del III secolo è stato installato un piccolo forno per la produzione del vetro. A sud degli edifici 1 e 3 si trovava uno spazio aperto che forniva l'accesso alla facciata orientale del Palazzo Imperiale dal molo verso est."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.781230,
+                    "lon": 12.257169,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/terrazza.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "La Terrazza di Trainao era la facciata del Palazzo Imperiale e avrebbe sostenuto un lungo colonnato che rappresentava uno scenario magnifico per le navi che arrivavano al complesso dal bacino di Claudio"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Il Cantiere Navale",
+                    "text": "Questo grande edificio faceva parte della stessa concezione architettonica del Palazzo Imperiale è stato interpretato come il cantiere navale imperiale, un rifugio per le navi da guerra, ma potrebbe anche essere stato utilizzato per la riparazione o la costruzione di altri tipi di nave.<br/><br/>Si tratta di una struttura di fine periodo traianeo, di circa 240 m per 60 m, e che si trova a sud-est del Palazzo Imperiale. Era composta da tre blocchi, ognuno dei quali era suddiviso in una serie di passaggi paralleli, baie strette e ampie, da pilastri in calcestruzzo e mattoni a vista. L'edificio si ergeva per circa 18 m in altezza, con la facciata meridionale ad arcate che si apriva su il bacino di Traiano. Le aperture ad arco sono state riempite successivamente con pareti in mattoni e reticolato. La larghezza delle campate strette è di circa 12 m. La funzione originaria dell'edificio era di un cantiere navale; anzi la sua forma ricorda molto da vicino la struttura dei cantieri navali di epoca successiva."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.781934,
+                    "lon": 12.259047,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/navalia.jpg",
+                    "credit": "Grant Cox / ArtasMedia",
+                    "caption": "Ricostruzione al computer del cantiere navale imperiale che si affaccia sul bacino traianeo"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Le Terme Horrea",
+                    "text": "Questo piccolo complesso di data incerta, è interpretato da alcuni come un magazzino che è stato poi convertito in terme. Gli edifici a nord delle Terme Horrea, sul bacino di Claudio, sono stati interpretati come un grande complesso di cisterne per l'acqua. Si conosce ancora poco di questi edifici, se non che risalgono al tardo II/inizio II secolo d.C."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.784110,
+                    "lon": 12.258757,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/terme_horrea.jpg",
+                    "credit": "11/02/2014  /  Google Earth <a href='https://goo.gl/maps/ic9oy9xbVC32' target='_blank'>41°47°02.25', 12°15°13.49'</a>",
+                    "caption": "Immagine satellitare delle Terme Horrea(<i>area boscosa vicino ai due tetti arancioni al centro dell’immagine</i>)"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Il Tempio (affacciato sul bacino di Traiano)",
+                    "text": "Un grande tempio che si trova in asse con l'ingresso al bacino di Traiano e di fronte al quale si trovava una statua colossale dell'Imperatore Traiano."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.781446,
+                    "lon": 12.266643,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/statue.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Statua di Traiano simile a quella che doveva trovare di fronte al tempio che si affaccia sul bacino di Traiano"
+                }
+            },
+			{
+                "text": {
+                    "headline": "L’Acquedotto Traianeo",
+                    "text": "Un acquedotto che ha rappresentato un cambio di direzione della linea dell’acquedotto di Claudio a seguito della creazione del bacino esagonale di Traiano."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.780859,
+                    "lon": 12.269175,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/aquaeduct.jpg",
+                    "credit": "Soprintendenza Speciale per il Colosseo, il Museo Nazionale Romano e l’Area Archeologica di Roma",
+                    "caption": "Vista aerea dell’acquedotto (<i>identificabile dal tratto scuro al centro della fotografia</i>)"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Il Canale Romano",
+                    "text": "Il Canale Romano è stato costruito sotto Traiano, e collegava il canale di Fiumicino, oltre la zona di trasbordo del bacino esagonale, attraverso il terreno pianeggiante fino all’intersezione con il Tevere. Conosciuto anche come Canale Traianeo e Canale di trasbordo, era utilizzato dalle imbarcazioni fluviali per trasportare carichi a Roma."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.779078,
+                    "lon": 12.269626,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/canale.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Il Canale Romano correva dai fabbricati rurali al di là del Tevere"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Il Porto Fluviale",
+                    "text": "Una serie di magazzini, un possibile tempio ed altri edifici.<br/><br/>Tombe (vicino al Tevere): Una serie di tombe monumentali che costeggiano la sponda occidentale del Tevere a nord dell’intersezione con il canale di Traiano da Portus."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.783324,
+                    "lon": 12.279239,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_1/port.jpg",
+                    "credit": "Soprintendenza Speciale per il Colosseo, il Museo Nazionale Romano e l’Area Archeologica di Roma",
+                    "caption": "Vista aerea del porto fluviale. I tratteggi delineano gli edifici rimasti"
+                }
+            },
+            {
+                "text": {
+                    "headline": "Il Ponte di Matidia",
+                    "text": "Il sito di un ponte romano sul canale di Fiumicino (Fossa di Traiano) che forniva il collegamento stradale principale tra Portus e Ostia."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.774565,
+                    "lon": 12.259455,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/ponte_matidia.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Non ci sono prove dell’esistenza del ponte di Matidia. Qui siamo nelle vicinande della presunta posizione del ponte antico"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Il Cimitero dell’Isola Sacra",
+                    "text": "Un cimitero che comprende un gran numero di tombe di individui di rango relativamente elevato, era in uso dal tardo I secolo d.C. fino al III/IV secolo d.C."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.769690,
+                    "lon": 12.263446,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/isola_cemetery.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Viste delle rovine del cimitero dell’Isola Sacra"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Da Portus al Canale di Ostia",
+                    "text": "Questo tratto, probabilmente di etá traianea, è stato identificato dalle indagini geofisiche e dai carotaggi geo-archeologici. Il Canale era attraversato da un ponte a nord della Isola Sacra, incorporata come un'isola, e si estendeva verso sud in direzione di Ostia."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.771562,
+                    "lon": 12.265592,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/geo_canal.jpg",
+                    "credit": "Kristian Strutt / University of Southampton",
+                    "caption": "I risultati dell'indagine geofisica della parte settentrionale dell’Isola Sacra mostrano la linea del canale e caratteristiche adiacenti"
+                }
+            },
+			{
+                "text": {
+                    "headline": "Ostia",
+                    "text": "Ostia fu un importante porto fluviale che si esendeva a 16 miglia a sud-ovest di Roma. Fondata nel tardo IV secolo d.C., sviluppò un’ importante comunità urbana. In tandem con Portus, l'Emporium a Roma, e il porto di Centumcellae (Civitavecchia), Ostia è stata un elemento chiave nella rete dei porti che collegano la Capitale."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.754644,
+                    "lon": 12.289495,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_1/ostia_aerial.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Veduta aerea con vista sulle rovine di Ostia, la riva del Tevere è riconoscibile in fondo a sinistra"
+                }
+            },
+			{
+                "text": {
+                    "headline": "La fine del Periodo Traianeo",
+                    "text": "In un periodo di circa sette anni, ingegneri e architetti dell'imperatore Traiano hanno trasformato quello che era il più grande porto romano artificiale del suo tempo nella rappresentazione monumentale del potere imperiale romano. Portus agiva, in questo momento, come l’ingresso marittimo alla cittá di Roma."
+                },
+                "location": {
+                    "name": "location",
+                    "image": "images/tiny_icon.png",
+                    "icon_size": 1,
+                    "lat": 41.7786,
+                    "lon": 12.2582,
+                    "zoom": 14,
+                    "line": false
+                },
+                "media": {
+                    "url": "images/images_2/basin_view.jpg",
+                    "credit": "Simon Keay / University of Southampton",
+                    "caption": "Vista del bacino traianeo dietro i Grandi Magazzini di Settimio Severo"
+                }
+            }
+        ]
+     }
+}

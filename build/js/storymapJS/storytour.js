@@ -200,7 +200,7 @@
 			}
 		},
 		
-		htmlify: function(str, attr, value) {
+		htmlify: function(str, attr) {
 			//if (str.match(/<\s*p[^>]*>([^<]*)<\s*\/\s*p\s*>/)) {
 			if (VCO.Browser.chrome) {
 				str = VCO.Emoji(str);
@@ -210,7 +210,7 @@
 				return str;
 			} else {
 				if(attr){
-					return "<p " + attr + ">" + value + "</p>";
+					return "<p " + attr + ">" + str + "</p>";
 				}
 				else {
 					return "<p" + str + "</p>";
@@ -6269,7 +6269,7 @@
 			if (this.data.text != "") {
 				var text_content = "";
 				
-				text_content 					+= VCO.Util.htmlify(this.data.text, "translate", "TEST_PARAGRAPH");
+				text_content 					+= VCO.Util.htmlify(this.data.text, "translate");
 				
 				// Date
 				if (this.data.date && this.data.date.created_time && this.data.date.created_time != "") {
