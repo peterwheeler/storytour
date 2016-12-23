@@ -31,16 +31,16 @@ tour.pages = [
 		title: "About Storytour"
 	},
 	{
-		name: "Tour",
-		url: "tour",
-		title: "Storytours"
+		name: "Team",
+		url: "team",
+		title: "Storytours Team"
 	}
 ];
 
 tour.maps = [
 	{
 		name: "Tarraco",
-		tourId: "tarraco",
+		id: "tarraco", // Used as url
 		title: "Tarraco tour",
 		language: "",
 		maps: [{
@@ -69,7 +69,7 @@ tour.maps = [
 	},
 	{
 		name: "Puteoli",
-		tourId: "puteoli",
+		id: "puteoli",
 		title: "Puteoli tour",
 		language: "",
 		maps: [{
