@@ -55,7 +55,7 @@ var languageCounter = function() {
 
 console.log(languageCounter);
 
-function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $translatePartialLoaderProvider, $urlMatcherFactoryProvider, tmhDynamicLocaleProvider){
+function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $translatePartialLoaderProvider, translatePluggableLoaderProvider, $urlMatcherFactoryProvider, tmhDynamicLocaleProvider){
     var urlMatcher = $urlMatcherFactoryProvider.compile("/{lang:(?:" + languageCounter.langUrls + ")}/");
     $stateProvider.state("app", {
                     abstract: true,
@@ -75,10 +75,11 @@ function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $tran
     $locationProvider.html5Mode(true),
     $locationProvider.hashPrefix("!");
 
-    $translatePartialLoaderProvider.addPart('home');
     $translateProvider.useLoader('$translatePartialLoader', {
-	  urlTemplate: "/js/angular/i18n/{part}/{lang}.json"
-	});
+        urlTemplate: "dist/translations/{lang}/{part}.json"
+    });
+
+    $translatePartialLoaderProvider.addPart('app');
 
     console.log("Language Loaded");
 
@@ -90,19 +91,6 @@ function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $tran
     tmhDynamicLocaleProvider.localeLocationPattern("/js/angular/i18n/default/angular-locale_{{locale}}.js");
     tmhDynamicLocaleProvider.defaultLocale(languageCounter.preferredId);
 };
-
-// function localeConfig(tmhDynamicLocale){
-//     var locales = languageCounter.urls,
-//     preferredLocale = languageCounter.preferredUrl;
-//     var currentLocale = $translate.proposedLanguage();
-//     var setLocale = function (locale) {
-//       if (!checkLocaleIsValid(locale)) {
-//         console.error('Locale name "' + locale + '" is invalid');
-//         return;
-//       }
-//     };
-//     tmhDynamicLocale.set();
-// };
 
 function pagesConfig($stateProvider){
    for (var i = 0; i < tour.pages.length; i++) {
@@ -119,24 +107,30 @@ function pagesConfig($stateProvider){
     }
 };
 
-function tourConfig(stateHelperProvider){
+function tourConfig(stateHelperProvider, $urlRouterProvider, translatePluggableLoaderProvider, $translatePartialLoaderProvider){
     stateHelperProvider.state({
         abstract: true,
         name: "app.tour",
         url: "",
-        template: "<div maps-directive></div>",
+        template: "<div tour-directive></div>",
         controller: "tourCtrl",
         controllerAs: "vm",
         children: (function(){
             var tourList = [];
             for (var k = 0; k < tour.maps.length; k++) {
                 var l = tour.maps[k];
-                tourList.push({name: l.id, url: "tour/" + l.id, controllerAs: "vm", controller: "mapsCtrl"})
+                tourList.push({name: l.id,
+                                url: "tour/" + l.id,
+                                controllerAs: "vm",
+                                controller: "mapsCtrl",
+                                params: {id: k, name: l.id}
+                            })
             }
             return tourList;
         })()
-    });
+    });    
 
+    // translatePluggableLoaderProvider.useLoader('translateTourLoader');
 };
 
 // function tourConfig($stateProvider){
@@ -171,135 +165,272 @@ function tourConfig(stateHelperProvider){
 //         });
 // };
 
-function translateFactory($http, $q){
-	return {
-
-	}
-};
-
-function mapsFactory($state, $stateParams, $http, $q){
-//     var storyslider = new VCO.StorySlider("storytour")
-    return {
-        $state
-    }
-};
-
-function mapsService($state, $stateParams, $http, $q){
-    VCO.StorySlider("storytour", "json/periodo_2.json")
-};
-
 function runCtrl($rootScope, $translate, tmhDynamicLocale, $location, $stateParams, $state){
 
-	var vm = this;
+    var vm = this;
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
 
-	$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.currentLang = $stateParams.lang;
 
-		$rootScope.currentLang = $stateParams.lang;
-		
-		if($rootScope.currentLang){
-			for (var i = 0; i < languageCounter.ids.length; i++) {
-				var urlCode = languageCounter.ids[i].split("-")[0];
-				if(urlCode == $rootScope.currentLang){
-					$translate.use(urlCode);
-					$translate.refresh();
-					tmhDynamicLocale.set(languageCounter.ids[i]);
-				}
-			}
-		}
-		else {
-			$translate.use(languageCounter.preferredUrl);
-			$translate.refresh();
-			tmhDynamicLocale.set(languageCounter.preferredId);
-		}
-		console.log("CurrentLang: " + $rootScope.currentLang, "Use: " + $translate.use(), "Proposed: " + $translate.proposedLanguage(), "Locale: " + tmhDynamicLocale.get());
-
-        console.log($state.get());
+        if($rootScope.currentLang){
+            for (var i = 0; i < languageCounter.ids.length; i++) {
+                var urlCode = languageCounter.ids[i].split("-")[0];
+                if(urlCode === $rootScope.currentLang){
+                    $translate.use(urlCode);
+                    $translate.refresh();
+                    tmhDynamicLocale.set(languageCounter.ids[i]);
+                }
+            }
+        }
+        else if (!$rootScope.currentLang) {
+            $translate.use(languageCounter.preferredUrl);
+            $translate.refresh();
+            tmhDynamicLocale.set(languageCounter.preferredId);
+        }
+        console.log("CurrentLang: " + $rootScope.currentLang, "Use: " + $translate.use(), "Proposed: " + $translate.proposedLanguage(), "Locale: " + tmhDynamicLocale.get());
     });
 
     // console.log(VCO);
 
-	$rootScope.$on('$translatePartialLoaderStructureChanged', function () {
-		$translate.refresh();
-	});
+    $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
+        $translate.refresh();
+    });
+};
+
+function translateTourLoader($q, $timeout){
+    return function(options) {
+        var translations = {};
+        var lang;
+        var defer = $q.defer();
+
+        if(options.key) {
+            lang = options.key;
+            translations = tour.translations[lang];
+        } else {
+            translations = tour.translations[0];
+        }
+        
+        defer.resolve(translations);
+        console.log(defer);
+        return defer.promise;
+    }
+};
+
+
+// function translateFactory($http, $q, translateTourLoader){
+//     return {
+//         getData: function(){
+//             var defer = $q.defer();
+//             console.log(translateTourLoader());
+//             defer.resolve(translateTourLoader)
+
+//             return defer.promise
+//             .then(function(response) {
+//                 if (response.data === key) {
+//                     return translations;
+//                 } else {
+//                     // invalid response
+//                     return defer.reject('Oops... invalid response');
+//                 }
+
+//             }, function(response) {
+//                 // something went wrong
+//                 return defer.reject('Oops... something went wrong');
+//             });
+//         }
+//     };
+// };
+
+// Get Factory to return array of JSON
+function mapsFactory($state, $stateParams, $http, $q){
+    // var test;
+    // $http.get("json/period_2.json").success(function(response) {
+    //     test = response;
+    // }); 
+    return {
+    }
+};
+
+function mapsService($state, $stateParams, $http, $q){
 };
 
 function rootCtrl($scope, $window, $log, $locale, localStorageService, $translate, $filter, $state, $rootScope, $location, $stateParams, tmhDynamicLocale) {
-
     $rootScope.startLang = languageCounter.preferredUrl;
     $rootScope.startLangId = languageCounter.preferredId;
 
     if (!$rootScope.startLang || tour.languages.length === 0) {
         console.error('There are no languages provided');
     }
-
     $translate.use($rootScope.startLang);
     tmhDynamicLocale.set($rootScope.startLangId);
 
     $scope.lang = $stateParams.lang;
-    $scope.changeLanguage = function(langKey) {
-        $translate.use(langKey);
-        console.log("en");
-    };
 };
 
-function aboutCtrl($scope, $location, $stateParams, $translatePartialLoader, $translate){
+function aboutCtrl($scope, $location, $stateParams, $translate, $translatePartialLoader){
 
-	$translatePartialLoader.addPart('about');
-	$translate.refresh();
 };
 
-function tourCtrl($scope, $location, $stateParams, $translatePartialLoader, $translate){
+function teamCtrl($scope, $location, $stateParams, $translate, $translatePartialLoader){
 
-	$translatePartialLoader.addPart('tour');
-	$translate.refresh();
 };
 
-function mapsCtrl($scope, $location, $stateParams, $translatePartialLoader, $translate, mapsFactory, mapsService){
+function tourCtrl($scope, $location, $stateParams, $translate, $translatePartialLoader){
+    $scope.tour = {n: "jas"}
 
-	$translatePartialLoader.addPart('maps');
-	$translate.refresh();
+};
+
+function mapsCtrl($scope, $location, $stateParams, $q, $timeout, $translate, $translatePartialLoader){
+
+    $timeout(function() {
+        $translatePartialLoader.addPart($stateParams.name);
+        $translate.refresh()
+        console.log("Part Added");
+    }, 3000);
+
+    
 
 	$scope.countchange = function(langKey){
 		$translate.use(langKey);
 		$translate.refresh();
 	};
 
-    console.log(mapsService);
+    $scope.$watch('map', function(map) {
+        if(map) {
+            map = {n: "asddasds"}
+            // $scope.storytour.slide = new VCO.StoryTour.Slide(storytour, "json/period_2.json", storymap_options);
+        }
+    });             
+
+    // $scope.transData = function(){
+    //     var translations = {};
+    //     translateFactory.getData()
+    //                 // then() called when son gets back
+    //                 .then(function(data) {
+    //                     // promise fulfilled
+    //                     if (data === 'en') {
+    //                         translations = tour.translations[data]
+    //                         console.log(translations);
+    //                         return translations;
+    //                     } else {
+    //                         console.log('error', error);
+    //                         // prepareSundayRoastDinner();
+    //                     }
+    //                 }, function(error) {
+    //                     // promise rejected, could log the error with: console.log('error', error);
+    //                     console.log('error', error);
+    //                     // prepareSundayRoastDinner();
+    //                 });
+    // }()
+
+    $scope.map = {n: "asddasds"}
+    $scope.mapData = tour.maps[$stateParams.id].maps;
+    $scope.jsonData = $stateParams.name;
 };
 
-function mapsDirective(){
-        return {
-            restrict: 'EA',
-            replace: false,
-            templateUrl: 'partials/maps.html',
-            controllerAs: 'vm',
-            controller: function () {
+function tourDirective(){
+
+    var link = function($scope, element, attr){
+        $scope.storymap_options = {
+            script_path: "js",
+            width: "100%",
+            height: "100%",
+            language: "en",
+            start_at_slide: 0,
+            show_lines: false,
+            use_custom_markers: true,
+            show_history_line: false,
+            map_background_color: "#ffffff",
+            // map config
+            map_type: "tileMill",
+            map_mini: true,
+            map_as_image: false,
+            calculate_zoom: false,
+            maps:  [{
+                map_type: "mapTiler",
+                map_name: "Reconstruction",
+                map_mini: false,
+                map_as_image: false,
+                map_as_overlay: false,
+                calculate_zoom: false,
+                attribution:        "Maps designed by <a href='https://artasmedia.com/'' target='_blank' class='vco-knightlab-brand'>ArtasMedia</a>",
+                mapTiler: {
+                    path:               "maps/period_01/",
+                    lat:                "",
+                    lng:                "",
+                    zoom:               14,
+                    minZoom:            14,
+                    maxZoom:            17
+                }   
             },
-            link: function(scope, element, attrs){
-            	scope.storymap_options = {
-					script_path: "js",
-					width: "100%",
-					height: "100%",
-					language: "en",
-					start_at_slide: 0,
-					show_lines: false,
-					use_custom_markers: true,			
-					show_history_line: false,
-					map_background_color: "#ffffff",
-					// map config
-					map_type: "tileMill",
-					map_mini: true,
-					map_as_image: false,
-					calculate_zoom: false
-				};		
-				scope.storymap = new VCO.StoryMap("storytour", "json/period_2.json", scope.storymap_options);
-            }
+            {
+                map_type: "mapTiler",
+                map_name: "Plan",
+                map_mini: false,
+                map_as_image: false,
+                map_as_overlay: false,
+                calculate_zoom: false,
+                attribution:        'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
+                mapTiler: {
+                    path:               "maps/plan_en_01/",
+                    lat:                "",
+                    lng:                "",
+                    zoom:               14,
+                    minZoom:            14,
+                    maxZoom:            17
+                    
+                }
+            },
+            {
+                map_type: "mapTiler",
+                map_name: "Satellite",
+                map_mini: false,
+                map_as_image: false,
+                map_as_overlay: false,
+                calculate_zoom: false,
+                attribution:        "Satellite &#9400; Digital Globe 2014",
+                mapTiler: {
+                    path:               "maps/satellite/",
+                    lat:                "",
+                    lng:                "",
+                    zoom:               14,
+                    minZoom:            14,
+                    maxZoom:            17
+                }
+            },
+            {
+                map_type: "mapTiler",
+                map_name: "Satellite",
+                map_mini: false,
+                map_as_image: false,
+                map_as_overlay: true,
+                calculate_zoom: false,
+                attribution:        "Satellite &#9400; Digital Globe 2014",
+                mapTiler: {
+                    path:               "maps/satellite/",
+                    lat:                "",
+                    lng:                "",
+                    zoom:               14,
+                    minZoom:            14,
+                    maxZoom:            17
+                }
+            }]
         };
+        $scope.storytour = new VCO.StoryTour("storytour", "json/tarraco.json", $scope.storymap_options);
+        // $scope.storytour = new VCO.StoryTour("storytour", "json/" + $scope.jsonData + ".json", $scope.storymap_options);
+    }
+    return {
+        restrict: 'EA',
+        replace: false,
+        templateUrl: 'partials/maps.html',
+        scope: true,
+        link: link
+    };
 };
 
 var appConfig = function(){
     var appName = "StoryTour",
-    appDependencies = ["additionalViews", "ui.router", "ui.router.stateHelper", "LocalStorageModule", "pascalprecht.translate", "tmh.dynamicLocale", "ngSanitize", "ngAnimate", "ngCookies"],
+    appDependencies = ["additionalViews", "ui.router", "ui.router.stateHelper", "LocalStorageModule", "pascalprecht.translate", "angular-translate-loader-pluggable", "tmh.dynamicLocale", "ngSanitize", "ngAnimate", "ngCookies"],
 
     pushLateModules = function(lateModule, dependencies) {
         angular.module(lateModule, dependencies || []),
@@ -316,7 +447,7 @@ var appConfig = function(){
 angular.module("additionalViews", []),
 angular.module(appConfig.appName, appConfig.appDependencies),
 angular.module(appConfig.appName).config(rootConfig),
-rootConfig.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider", "$translateProvider", "$translatePartialLoaderProvider", "$urlMatcherFactoryProvider", "tmhDynamicLocaleProvider"],
+rootConfig.$inject = ["$stateProvider", "$urlRouterProvider", "$locationProvider", "$translateProvider", "$translatePartialLoaderProvider", "translatePluggableLoaderProvider", "$urlMatcherFactoryProvider", "tmhDynamicLocaleProvider"],
 
 // appConfig.pushLateModules("StoryTour.localeConfig"),
 // angular.module("StoryTour.localeConfig").config(localeConfig),
@@ -328,12 +459,16 @@ pagesConfig.$inject = ["$stateProvider"],
 
 appConfig.pushLateModules(appConfig.appName + ".tour"),
 angular.module(appConfig.appName + ".tour").config(tourConfig),
-tourConfig.$inject = ["stateHelperProvider"];
+tourConfig.$inject = ["stateHelperProvider", "$urlRouterProvider", "translatePluggableLoaderProvider", "$translatePartialLoaderProvider"];
 
-console.log(appConfig.appDependencies);
+angular.module(appConfig.appName).run(runCtrl),
+runCtrl.$inject = ["$rootScope", "$translate", "tmhDynamicLocale", "$location", "$stateParams", "$state"]
 
-angular.module(appConfig.appName).factory("translateFactory", translateFactory),
-translateFactory.$inject = ["$http", "$q"],
+angular.module(appConfig.appName).factory("translateTourLoader", translateTourLoader),
+translateTourLoader.$inject = ["$q", "$timeout"],
+
+// angular.module(appConfig.appName).factory("translateFactory", translateFactory),
+// translateFactory.$inject = ["$http", "$q", "translateTourLoader"],
 
 angular.module(appConfig.appName + ".tour").factory("mapsFactory", mapsFactory),
 mapsFactory.$inject = ["$state", "$stateParams", "$http", "$q"],
@@ -341,22 +476,23 @@ mapsFactory.$inject = ["$state", "$stateParams", "$http", "$q"],
 angular.module(appConfig.appName + ".tour").service("mapsService", mapsService),
 mapsService.$inject = ["$state", "$stateParams", "$http", "$q"],
 
-angular.module(appConfig.appName).run(runCtrl),
-runCtrl.$inject = ["$rootScope", "$translate", "tmhDynamicLocale", "$location", "$stateParams", "$state"]
-
 angular.module(appConfig.appName).controller("rootCtrl", rootCtrl),
 rootCtrl.$inject = ["$scope", "$window", "$log", "$locale", "localStorageService", "$translate", "$filter", "$state", "$rootScope", "$location", "$stateParams", "tmhDynamicLocale"],
 
 angular.module(appConfig.appName + ".pages").controller("aboutCtrl", aboutCtrl),
-aboutCtrl.$inject = ["$scope", "$location", "$stateParams", "$translatePartialLoader", "$translate"],
+aboutCtrl.$inject = ["$scope", "$location", "$stateParams", "$translate", "$translatePartialLoader"],
+
+angular.module(appConfig.appName + ".pages").controller("teamCtrl", teamCtrl),
+teamCtrl.$inject = ["$scope", "$location", "$stateParams", "$translate", "$translatePartialLoader"],
 
 angular.module(appConfig.appName + ".tour").controller("tourCtrl", tourCtrl),
-tourCtrl.$inject = ["$scope", "$location", "$stateParams", "$translatePartialLoader", "$translate"],
+tourCtrl.$inject = ["$scope", "$location", "$stateParams", "$translate", "$translatePartialLoader"],
 
 angular.module(appConfig.appName + ".tour").controller("mapsCtrl", mapsCtrl),
-mapsCtrl.$inject = ["$scope", "$location", "$stateParams", "$translatePartialLoader", "$translate", "mapsFactory", "mapsService"],
+mapsCtrl.$inject = ["$scope", "$location", "$stateParams", "$q", "$timeout", "$translate", "$translatePartialLoader"],
 
-angular.module(appConfig.appName + ".tour").directive("mapsDirective", mapsDirective)
+angular.module(appConfig.appName + ".tour").directive("tourDirective", tourDirective),
+tourDirective.$inject = ["mapsService"]
 
 }({VCO}, function() {return this;}() ),
 

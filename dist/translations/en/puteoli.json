@@ -1,0 +1,40 @@
+{
+"TEST_PARAGRAPH": "Hello World Tarraco",
+"slides": [
+    {
+    "text": {
+        "headline": "Claudian Basin",
+        "text": "During the Trajanic phase the outer, the Claudian basin would have continued to be filled with ships. We still know very little about the operation of how the harbour basins worked and related to one another, but presumably the Claudian basin, Trajanic basin and the Darsena, together with the Tiber frontage of Ostia to the south, would have served different types of shipping and also allowed for different stages in the management of goods. Perhaps the large ships bringing grain from North Africa and Egypt would have moored commoditiesin the protection of the outer basin, until allocated a slot along the quays that defined the Grandi Magazzini di Traiano and the Portico di Claudio, while those carrying other commdities would have eventually docked in the Trajanic basin. Whilst we cannot be sure how it worked, and lack the crucial written documentation, we do have a sense of the mammoth scale and complexity of the task."
+    },
+    "location": {
+        "name": "location",
+        "lat": 53,
+        "lon": -115,
+        "zoom": 4,
+        "line": false
+    },
+    "media": {
+        "url": "images/images_2/claudian_basin.jpg",
+        "credit": "Simon Keay / University of Southampton",
+        "caption": "View across the Claudian basin"
+    }
+},
+{
+    "text": {
+        "headline": "Monte Giulio",
+        "text": "This area lies immediately behind the eastern quay of the Claudian basin. It is the location of a number of large rectangular buildings interpreted as warehouses, baths and a water cistern. Although the latter has been excavated, nothing is known about its chronology."
+    },
+    "location": {
+        "name": "location",
+        "lat": 59,
+        "lon": -83,
+        "zoom": 4,
+        "line": false
+    },
+    "media": {
+        "url": "images/images_2/monte_giulio.jpg",
+        "credit": "Simon Keay / University of Southampton",
+        "caption": "Standing remains of the Trajanic cistern within the area of Monte Giulio"
+    }
+}]
+}

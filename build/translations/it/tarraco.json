@@ -1,0 +1,42 @@
+{
+"TEST_PARAGRAPH": "Ciao Mondo Tarraco",
+"slides": [
+    {
+    "text": {
+        "headline": "Il Periodo Traianeo",
+        "text": "Mentre nel periodo Claudio (I secolo d.C.) si vede l'emergere di Portus, in questa seconda fase dominata dagli investimenti effettuati dall'Imperatore Traiano, lo vediamo raggiungere la sua massima estensione.<br/><br/>Sotto l'Imperatore Traiano, probabilmente nel periodo compreso tra il 110-117 d.C., il porto esistente viene ampliato con la creazione di un bacino esagonale ad est del precedente bacino di Claudio. Il bacino esagonale era circondato da una serie di edifici nuovi importanti, tra cui un tempio e il recinto; il Palazzo Imperiale e gli edifici amministrativi associati; un possibile cantiere e molti magazzini.<br/><br/>Le aree che erano state fondate sotto Claudio e Nerone vengono ricostruite. Questo complesso portuale allargato era collegato al Tevere tramite un nuovo canale, e a Roma da un prolungamento della Via Campana/Portuense. Allo stesso modo, il suo collegamento con Ostia è stato migliorato tramite la creazione di un nuovo canale in direzione sud attraverso l'Isola Sacra."
+    },
+    "location": {
+        "name": "location",
+        "image": "images/tiny_icon.png",
+        "icon_size": 1,
+        "lat": 41.7786,
+        "lon": 12.2582,
+        "zoom": 14,
+        "line": false
+    },
+    "media": {
+        "url": "images/images_2/trajanic.jpg",
+        "credit": "Simon Keay / University of Southampton",
+        "caption": "Vista aerea del grande bacino esagonale costruito dall’Imperatore Traiano"
+    }
+},
+{
+    "text": {
+        "headline": "Il Faro",
+        "text": "Il Faro (Pharos), costruito durante il regno di Claudio, continua a dominare l'ingresso di Portus nella fase traianea, nonostante la vista dal faro sia nettamente cambiata. Nel periodo claudio, il paesaggio visibile era formato, presumibilmente, da magazzini e altri edifici in una posizione arretrata rispetto alla banchina claudia. Questi edifici sarebbero stati demoliti dal progetto di costruzione iniziato da Traiano, che prevedeva lo scavo del grande bacino di Traiano, circondato da alcuni edifici maestosi in una scala che invitava al confronto diretto con la Roma Imperiale."
+    },
+    "location": {
+        "name": "location",
+        "lat": 41.775109,
+        "lon": 12.234263,
+        "zoom": 16,
+        "line": false
+    },
+    "media": {
+        "url": "images/images_1/mosaic_ostia.jpg",
+        "credit": "Simon Keay / University of Southampton",
+        "caption": "Immagine del Pharos a Portus in un mosaico ritrovato a Ostia"
+    }
+}]
+}

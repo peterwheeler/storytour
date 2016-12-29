@@ -18662,7 +18662,7 @@
 	});
 	
 
-VCO.StoryMap = VCO.Class.extend({
+VCO.StoryTour = VCO.Class.extend({
 
 	includes: VCO.Events,
 
@@ -18720,7 +18720,7 @@ VCO.StoryMap = VCO.Class.extend({
 		this.data = {};
 
 		this.options = {
-			script_path:            VCO.StoryMap.SCRIPT_PATH,
+			script_path:            VCO.StoryTour.SCRIPT_PATH,
 			height: 				this._el.container.offsetHeight,
 			width: 					this._el.container.offsetWidth,
 			layout: 				"landscape", 	// portrait or landscape
@@ -18792,6 +18792,28 @@ VCO.StoryMap = VCO.Class.extend({
 				}	
 			}]
 		};
+
+		this.data = {
+			"slides": [
+	            {
+	                "text": {
+	                    "headline": "",
+	                    "text": ""
+	                },
+	                "location": {
+	                    "name": "location",
+	                    "lat": 0,
+	                    "lon": 0,
+	                    "zoom": 3,
+	                    "line": false
+	                },
+	                "media": {
+	                    "url": "",
+	                    "credit": "",
+	                    "caption": ""
+	                }
+	            }]
+	    };
 
 		// Current Slide
 		this.current_slide = this.options.start_at_slide;
@@ -18908,37 +18930,18 @@ VCO.StoryMap = VCO.Class.extend({
 		return this.current_slide;
 	},
 
+	updateData: function(data){
+		this._initData(data);
+	},
+
 	/*	Private Methods
 	================================================== */
 
-	// Initialize the data
-/*
-	_initData: function(data) {
-		var self = this;
-
-		if (typeof data === 'string') {
-
-			VCO.getJSON(data, function(d) {
-				if (d && d.storymap) {
-					VCO.Util.mergeData(self.data, d.storymap);
-				}
-				self._onDataLoaded();
-			});
-		} else if (typeof data === 'object') {
-			if (data.storymap) {
-				self.data = data.storymap;
-			} else {
-				trace("data must have a storymap property")
-			}
-			self._onDataLoaded();
-		} else {
-			self._onDataLoaded();
-		}
-	},
-*/
 	// Initialize the layout
 	_initLayout: function () {
 		var self = this;
+
+		// console.log("Primary Load");
 		
 		this._el.container.className += ' vco-storymap';
 		this.options.base_class = this._el.container.className;
@@ -18949,6 +18952,8 @@ VCO.StoryMap = VCO.Class.extend({
 		this._el.map 			= VCO.Dom.create('div', 'vco-map', this._el.container);
 		this._el.storyslider 	= VCO.Dom.create('div', 'vco-storyslider', this._el.container);
 		this._el.messages 		= VCO.Dom.create('div', 'vco-messages', this._el.container);
+		this._el.test 			= VCO.Dom.create('div', 'vco-test', this._el.container);
+		this._el.test.innerHTML = '<h1 class="body-header center" style="height: 100px; width: 100px; position: absolute; top: 50%; left: 50%;">{{"HOME.TITLE" | translate}}</h1>';
 		
 		// Initial Default Layout
 		this.options.width 				= this._el.container.offsetWidth;
@@ -19008,7 +19013,6 @@ VCO.StoryMap = VCO.Class.extend({
 	},
 
 	_showMessage: function() {
-
 		this._startmessage = new VCO.TourMessage({}, {
 					message_id:         "start-modal"
 					});
@@ -19033,7 +19037,6 @@ VCO.StoryMap = VCO.Class.extend({
 		// 	this._finalmessage.updateMessage('');
 		// }
 		this._finalmessage.addTo(this._el.messages);
-		
 	},
 
 	_initEvents: function () {
@@ -19324,9 +19327,118 @@ VCO.StoryMap = VCO.Class.extend({
 	}
 });
 
+VCO.StoryTour.Slide = VCO.Class.extend({
+	includes: VCO.Events,
+
+	initialize: function (storytour, data, options) {
+
+		// console.log("Secondary Load");
+
+		VCO.Util.mergeData(storytour.options, options);
+
+		storytour._initData(data);
+
+		return storytour;
+	},
+
+		/* Initialize the data
+	================================================== */
+    _initData: function(data) {
+		var self = storytour;
+
+		if (typeof data === 'string') {
+			VCO.getJSON(data, function(d) {
+				if (d && d.storymap) {
+					VCO.Util.mergeData(self.data, d.storymap);
+				}
+				self._initOptions();
+			});
+		} else if (typeof data === 'object') {
+			if (data.storymap) {
+				self.data = data.storymap;
+			} else {
+				trace("data must have a storymap property")
+			}
+			self._initOptions();
+		} else {
+		    trace("data has unknown type")
+		    self._initOptions();
+        }
+	},
+
+		/* Initialize the options
+	================================================== */
+    _initOptions: function() {
+ 		var self = storytour;
+
+        // Grab options from storymap data
+        VCO.Util.updateData(storytour.options, storytour.data);
+    }
+});
+
+VCO.StoryTour.Map = VCO.Class.extend({
+
+	includes: VCO.Events,
+
+	initialize: function (storytour, data, options) {
+		var self = storytour;
+
+		console.log("Third Load");
+
+		storytour.options = {};
+		storytour.data = {};
+
+		return storytour;
+	},
+
+		/* Initialize the data
+	================================================== */
+    _initData: function(data) {
+		var self = storytour;
+
+		if (typeof data === 'string') {
+			VCO.getJSON(data, function(d) {
+				if (d && d.storymap) {
+					VCO.Util.mergeData(self.data, d.storymap);
+				}
+				self._initOptions();
+			});
+		} else if (typeof data === 'object') {
+			if (data.storymap) {
+				self.data = data.storymap;
+			} else {
+				trace("data must have a storymap property")
+			}
+			self._initOptions();
+		} else {
+		    trace("data has unknown type")
+		    self._initOptions();
+		}
+	},
+
+		/* Initialize the options
+	================================================== */
+    _initOptions: function() {
+ 		var self = storytour;
+
+        // Grab options from storymap data
+        VCO.Util.updateData(storytour.options, storytour.data);
+    }
+});
+
+VCO.Navigation = VCO.Class.extend({
+	includes: VCO.Events,
+
+	initialize: function (storytour, data, options) {
+		var self = storytour;
+
+		console.log("asfdsakod");
+		return storytour;
+	}
+});
+
 (function(_) {
 	var scripts = document.getElementsByTagName("script"),
     		src = scripts[scripts.length-1].src;
 	_.SCRIPT_PATH = src.substr(0,src.lastIndexOf("/"));
-
-})(VCO.StoryMap)
+})(VCO.StoryTour)

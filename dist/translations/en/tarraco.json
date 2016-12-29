@@ -1,0 +1,43 @@
+{
+"TEST_PARAGRAPH": "Hello World Tarraco",
+"TEXT1": "BLALLALALALALasjdiansijdfnajkosdlnkaslndiuasnljdfknasijfndklasndiasdknlkasndiasjndasijdnasldisakjasndijasnid.",
+"slides": [
+    {
+        "text": {
+            "headline": "Trajanic Period",
+            "text": "In the Claudian period (the first century AD) we see the emergence of Portus. In this second phase of the site, dominated by the investment made by the Emperor Trajan, we see it reaching its maximum extent.<br/><br/>Under the Emperor Trajan, probably in the period between AD 110-117, the existing harbour was enlarged with the establishment of a hexagonal basin a short distance to the east of the earlier Claudian basin.  It was surrounded by a number of major new buildings, including a temple and precinct, the Palazzo Imperiale and associated administrative buildings, a possible shipyard and many warehouses.<br/><br/>Areas that had been established under Claudius and Nero were also rebuilt. This enlarged port complex was connected both to the Tiber by one new canal, the Canale Romano, and to Rome by an extension of the Via Campana/ Portuensis. Similarly, its connection to Ostia was enhanced via the addition of another new canal heading southwards across the Isola Sacra."
+        },
+        "location": {
+            "name": "location",
+            "image": "images/tiny_icon.png",
+            "icon_size": 1,
+            "lat": 57.5,
+            "lon": -90.5,
+            "zoom": 3,
+            "line": false
+        },
+        "media": {
+            "url": "images/images_2/trajanic.jpg",
+            "credit": "Simon Keay / University of Southampton",
+            "caption": "Aerial view of the great hexagonal basin built by the Emperor Trajan"
+        }
+    },
+    {
+    "text": {
+        "headline": "Pharos",
+        "text": "The Pharos, constructed during the reign of Claudius, continues to dominate the approach to Portus in the Trajanic phase. But the view from the Pharos would have been markedly different. In the Claudian period the view would have shown, presumably, warehouses and other buildings set back from the Claudian quayside. These would have been demolished in the massive building programme initiated by Trajan, leading to the excavation of the huge Trajanic basin, surrounded by some very large buildings on a scale that invites comparison with Imperial Rome itself."
+    },
+    "location": {
+        "name": "location",
+        "lat": 46.5,
+        "lon": -136.5,
+        "zoom": 4,
+        "line": false
+    },
+    "media": {
+        "url": "images/images_1/mosaic_ostia.jpg",
+        "credit": "Simon Keay / University of Southampton",
+        "caption": "Depiction of the Pharos at Portus in a mosaic found at Ostia"
+    }
+}]
+}
