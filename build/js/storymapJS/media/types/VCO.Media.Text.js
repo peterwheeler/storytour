@@ -108,8 +108,13 @@ VCO.Media.Text = VCO.Class.extend({
 		// Text
 		if (this.data.text != "") {
 			var text_content = "";
+			var test = "";
+			var test2 = "";
 			
-			text_content 					+= VCO.Util.htmlify(this.data.text, "translate");
+			// text_content 					+= VCO.Util.htmlify(this.data.text, "translate");
+			
+			test += angular.element(document.body).injector().get('translateService').interpolate(this.data.text);
+			text_content += '<p>' + test + '</p>';
 			
 			// Date
 			if (this.data.date && this.data.date.created_time && this.data.date.created_time != "") {
@@ -123,9 +128,8 @@ VCO.Media.Text = VCO.Class.extend({
 				}
 			}
 			
-			
 			this._el.content				= VCO.Dom.create("div", "vco-text-content", this._el.content_container);
-			this._el.content.innerHTML		= text_content;
+			this._el.content.innerHTML		= text_content;		
 			
 		}
 		

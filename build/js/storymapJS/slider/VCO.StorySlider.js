@@ -19,7 +19,7 @@ VCO.StorySlider = VCO.Class.extend({
 
 	/*	Private Methods
 	================================================== */
-	initialize: function (elem, data, options, init) {
+	initialize: function (elem, data, options, update) {
 
 		// DOM ELEMENTS
 		this._el = {
@@ -96,8 +96,8 @@ VCO.StorySlider = VCO.Class.extend({
 		VCO.Util.mergeData(this.options, options);
 		VCO.Util.mergeData(this.data, data);
 
-		if (init) {
-			this.init();
+		if (update) {
+			this.remove();
 		}
 	},
 
@@ -112,6 +112,15 @@ VCO.StorySlider = VCO.Class.extend({
 
 		this._onLoaded();
 		this._introInterface();
+	},
+
+	remove: function(){
+
+		var parent = document.getElementById(this._el.container.id);
+		while (parent.firstChild) {
+		    parent.removeChild(parent.firstChild);
+		}
+		this.init();
 	},
 
 	/*	Public
@@ -639,8 +648,6 @@ VCO.StorySlider = VCO.Class.extend({
 	_onLoaded: function() {
 		this.fire("loaded", this.data);
 		this.fire("title", {title:this._slides[0].title});
-
 	}
-
 
 });

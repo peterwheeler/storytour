@@ -273,6 +273,8 @@ VCO.StoryTour = VCO.Class.extend({
 			messages: {}
 		};
 
+		this.el = this._el;
+
 		// Determine Container Element
 		if (typeof elem === 'object') {
 			this._el.container = elem;
@@ -508,8 +510,8 @@ VCO.StoryTour = VCO.Class.extend({
 		return this.current_slide;
 	},
 
-	updateData: function(data){
-		this._initData(data);
+	getStoryMapElement: function(data){
+		return this._el;
 	},
 
 	/*	Private Methods
@@ -519,7 +521,7 @@ VCO.StoryTour = VCO.Class.extend({
 	_initLayout: function () {
 		var self = this;
 
-		// console.log("Primary Load");
+		console.log("Primary Load");
 		
 		this._el.container.className += ' vco-storymap';
 		this.options.base_class = this._el.container.className;
@@ -530,8 +532,6 @@ VCO.StoryTour = VCO.Class.extend({
 		this._el.map 			= VCO.Dom.create('div', 'vco-map', this._el.container);
 		this._el.storyslider 	= VCO.Dom.create('div', 'vco-storyslider', this._el.container);
 		this._el.messages 		= VCO.Dom.create('div', 'vco-messages', this._el.container);
-		this._el.test 			= VCO.Dom.create('div', 'vco-test', this._el.container);
-		this._el.test.innerHTML = '<h1 class="body-header center" style="height: 100px; width: 100px; position: absolute; top: 50%; left: 50%;">{{"HOME.TITLE" | translate}}</h1>';
 		
 		// Initial Default Layout
 		this.options.width 				= this._el.container.offsetWidth;
@@ -587,7 +587,6 @@ VCO.StoryTour = VCO.Class.extend({
 		
 		// Animate Menu Bar to Default Location
 		// this._menubar.show(2000);
-		
 	},
 
 	_showMessage: function() {
@@ -785,7 +784,6 @@ VCO.StoryTour = VCO.Class.extend({
 		this._initLayout();
 		this._initEvents();
 		this.ready = true;
-
 	},
 
 	_onTitle: function(e) {
@@ -906,23 +904,146 @@ VCO.StoryTour = VCO.Class.extend({
 });
 
 VCO.StoryTour.Slide = VCO.Class.extend({
-	includes: VCO.Events,
+	includes: [VCO.Events, VCO.StoryTour],
 
 	initialize: function (storytour, data, options) {
 
-		// console.log("Secondary Load");
+		this._el = storytour.el;
+		console.log("Secondary Load");
 
-		VCO.Util.mergeData(storytour.options, options);
+		// Slider
+		this._storyslider = {};
 
-		storytour._initData(data);
+		// Map
+		this._map = {};
+		this.map = {}; // For direct access to Leaflet Map
 
-		return storytour;
+		// Menu Bar
+		this._menubar = {};
+
+		// Loaded State
+		this._loaded = {storyslider:false, map:false};
+
+		// Data Object
+		// Test Data compiled from http://www.pbs.org/marktwain/learnmore/chronology.html
+		this.data = {};
+
+		this.options = {
+			script_path:            VCO.StoryTour.SCRIPT_PATH,
+			height: 				this._el.container.offsetHeight,
+			width: 					this._el.container.offsetWidth,
+			layout: 				"landscape", 	// portrait or landscape
+			base_class: 			"",
+			default_bg_color: 		{r:256, g:256, b:256},
+			less_bounce: 			false, 			// Less map bounce when calculating zoom, false is good when there are clusters of tightly grouped markers
+			start_at_slide: 		0,
+			current_slide:          0,
+			call_to_action: 		false,
+			call_to_action_text: 	"",
+			menubar_height: 		0,
+			skinny_size: 			650,
+			relative_date: 			false, 			// Use momentjs to show a relative date from the slide.text.date.created_time field
+			// animation
+			duration: 				1000,
+			ease: 					VCO.Ease.easeInOutQuint,
+			// interaction
+			dragging: 				true,
+			trackResize: 			true,
+			storyslider_height: 	600,
+			slide_padding_lr: 		45, 			// padding on slide of slide
+			slide_default_fade: 	"0%", 			// landscape fade
+			menubar_default_y: 		0,
+			path_gfx: 				"gfx",
+			zoom_distance: 			100,
+			line_follows_path: 		true,   		// Map history path follows default line, if false it will connect previous and current only
+			line_color: 			"#c34528", //"#DA0000",
+			line_color_inactive: 	"#CCC",
+			line_join: 				"miter",
+			line_weight: 			3,
+			line_opacity: 			0.80,
+			line_dash: 				"5,5",
+			show_lines: 			true,
+			show_history_line: 		true,
+			api_key_flickr: 		"f2cc870b4d233dd0a5bfe73fd0d64ef0",
+			language:               "en",
+			map_height: 			300,
+			map_popup: 				false,
+			map_size_sticky: 		2.5, 				// Set as division 1/3 etc
+			map_center_offset:  	null, 			// takes object {top:0,left:0}
+			maps: [{
+					// map config
+					map_type: 				"stamen:toner-lite",
+					map_name: 				"",
+					map_mini: 				true,
+					map_subdomains: 		"",
+					map_as_image: 			false,
+					map_as_overlay:         false,
+					map_background_color: 	"#d9d9d9",
+					map_center_offset:  	null, 			// takes object {top:0,left:0}
+					map_access_token:       "pk.eyJ1IjoibnVrbmlnaHRsYWIiLCJhIjoiczFmd0hPZyJ9.Y_afrZdAjo3u8sz_r8m2Yw", // default
+					zoom_distance: 			100,
+					calculate_zoom: 		true,   		// Allow map to determine best zoom level between markers (recommended)
+					attribution: 		    "",
+					zoomify: {
+						path: 				"",
+						width: 				"",
+						height: 			"",
+						tolerance: 			0.8,
+						attribution: 		""
+					},
+					mapTiler: {
+						path: 				"",
+						lat:				"",
+						lng: 				"",
+						zoom: 				13,
+						minZoom:        	13,
+						maxZoom:        	17
+				}	
+			}]
+		};
+
+		this.data = {
+			"slides": [
+	            {
+	                "text": {
+	                    "headline": "",
+	                    "text": ""
+	                },
+	                "location": {
+	                    "name": "location",
+	                    "lat": 0,
+	                    "lon": 0,
+	                    "zoom": 3,
+	                    "line": false
+	                },
+	                "media": {
+	                    "url": "",
+	                    "credit": "",
+	                    "caption": ""
+	                }
+	            }]
+	    };
+
+		// Current Slide
+		this.current_slide = this.options.start_at_slide;
+		this.current_slide = this.options.current_slide;
+
+		// Animation Objects
+		this.animator_map = null;
+		this.animator_storyslider = null;
+
+		// Merge Options -- legacy, in case people still need to pass in
+		VCO.Util.mergeData(this.options, options);
+
+        this._initData(data);
+
+		return this;
 	},
 
 		/* Initialize the data
 	================================================== */
-    _initData: function(data) {
-		var self = storytour;
+	_initData: function(data) {
+		var self = this;
 
 		if (typeof data === 'string') {
 			VCO.getJSON(data, function(d) {
@@ -944,14 +1065,100 @@ VCO.StoryTour.Slide = VCO.Class.extend({
         }
 	},
 
-		/* Initialize the options
+    /* Initialize the options
 	================================================== */
     _initOptions: function() {
- 		var self = storytour;
+ 		var self = this;
 
         // Grab options from storymap data
-        VCO.Util.updateData(storytour.options, storytour.data);
-    }
+        VCO.Util.updateData(this.options, this.data);
+
+		if (this.options.layout == "landscape") {
+			this.options.map_center_offset = {left: -200, top: 0};
+		}
+		if (this.options.map_type == "zoomify" && this.options.map_as_image) {
+			this.options.map_size_sticky = 2;
+		}
+		if (this.options.map_as_image) {
+			this.options.calculate_zoom = false;
+		}
+
+        // Use relative date calculations?
+		if(this.options.relative_date) {
+			if (typeof(moment) !== 'undefined') {
+				self._loadLanguage();
+			} else {
+				VCO.Load.js(this.options.script_path + "/library/moment.js", function() {
+					self._loadLanguage();
+					trace("LOAD MOMENTJS")
+				});
+			}
+		} else {
+			self._loadLanguage();
+		}
+
+ 		// Emoji Support to Chrome?
+		if (VCO.Browser.chrome) {
+			VCO.Load.css(VCO.Util.urljoin(this.options.script_path,"../css/fonts/font.emoji.css"), function() {
+				trace("LOADED EMOJI CSS FOR CHROME")
+			});
+		}
+    },
+
+    	/*	Load Language
+	================================================== */
+	_loadLanguage: function() {
+		var self = this;
+		if(this.options.language == 'es') {
+		    this.options.language = VCO.Language;
+		    self._onDataLoaded();
+		} else {
+			VCO.Load.js(VCO.Util.urljoin(this.options.script_path, "/locale/" + this.options.language + ".js"), function() {
+				self._onDataLoaded();
+			});
+		}
+	},
+
+    // Initialize the layout
+	_initLayout: function () {
+		var self = this;
+
+		this._map = new VCO.Map.Leaflet(this._el.map, this.data, this.options, true);
+		// this._storyslider = new VCO.StorySlider(this._el.storyslider, this.data, self.options, true);
+	},
+
+	_initEvents: function () {
+		
+		// Menu Interaction Events
+		VCO.DomEvent.addListener(this._el.viewSwitch, 'click', this._onMapToggle, this);
+		this._menubar.on('back_to_start', this._onBackToStart, this);
+		this._menubar.on('overview', this._onOverview, this);
+		
+		// StorySlider Events
+		this._storyslider.on('change', this._onSlideChange, this);
+		this._storyslider.on('colorchange', this._onColorChange, this);
+		
+		// Map Events
+		this._map.on('change', this._onMapChange, this);
+		this._map.on('markerclicked', this._onIconClick, this);
+
+		if (this._message) {
+			this.closeBtn = VCO.Dom.get('close-overlay');
+			VCO.DomEvent.addListener(this.closeBtn, 'click', this._onMessageClick, this);
+		}
+	},
+
+		/*	Events
+	================================================== */
+
+	_onDataLoaded: function(e) {
+		this.fire("dataloaded");
+		this._initLayout();
+		this._initEvents();
+		this.ready = true;
+
+		console.log(this);
+	}
 });
 
 VCO.StoryTour.Map = VCO.Class.extend({

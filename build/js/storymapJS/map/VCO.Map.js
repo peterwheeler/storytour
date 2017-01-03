@@ -16,7 +16,7 @@ VCO.Map = VCO.Class.extend({
 	
 	/*	Constructor
 	================================================== */
-	initialize: function(elem, data, options) {
+	initialize: function(elem, data, options, update) {
 		// DOM ELEMENTS
 		this._el = {
 			container: {},
@@ -28,6 +28,10 @@ VCO.Map = VCO.Class.extend({
 			this._el.container = elem;
 		} else {
 			this._el.container = VCO.Dom.get(elem);
+		}
+
+		if (!this._el.container.id) {
+			this._el.container.id = VCO.Util.unique_ID(6, "vco");
 		}
 		
 		// LOADED
@@ -125,13 +129,29 @@ VCO.Map = VCO.Class.extend({
 		// Merge Data and Options
 		VCO.Util.mergeData(this.options, options);
 		VCO.Util.mergeData(this.data, data);
+
+		if (update) {
+			this.remove();
+		}
+		else {
+			this.init();
+		}
 		
+	},
+
+	init: function(){
 		this._initLayout();
 		this._initEvents();
 		this._createMap();
 		this._initData();
-		
-		
+	},
+
+	remove: function(){
+		var parent = document.getElementById(this._el.container.id);
+		while (parent.firstChild) {
+		    parent.removeChild(parent.firstChild);
+		}
+		this.init();
 	},
 	
 	/*	Public

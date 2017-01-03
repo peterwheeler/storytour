@@ -28,6 +28,8 @@ VCO.MenuBar = VCO.Class.extend({
 			coverbar: {},
 			grip: {}
 		};
+
+		this.el = this._el;
 		
 		this.collapsed = false;
 		
@@ -230,7 +232,6 @@ VCO.MenuBar = VCO.Class.extend({
 			this.options.height = height;
 		}
 	},
-
 
 	/*	Public
 	================================================== */

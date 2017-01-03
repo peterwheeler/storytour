@@ -9,8 +9,6 @@ VCO.Map.Leaflet = VCO.Map.extend({
 	/*	Create the Map
 	================================================== */
 	_createMap: function() {
-
-
 		this._map = new L.map(this._el.map, {scrollWheelZoom:false, zoomControl:true, attributionControl: true});
 		this._map.on("load", this._onMapLoaded, this);
 
@@ -45,9 +43,6 @@ VCO.Map.Leaflet = VCO.Map.extend({
 			this._line_active.setStyle({opacity:0});
 			this._line.setStyle({opacity:0});
 		}
-
-
-
 	},
 
 	/*	Create Mini Map
@@ -79,7 +74,6 @@ VCO.Map.Leaflet = VCO.Map.extend({
 		}).addTo(this._map);
 
 		this._mini_map.getContainer().style.backgroundColor = this.options.map_background_color;
-
 	},
 
 	/*	Create GeoLocator
@@ -106,7 +100,6 @@ VCO.Map.Leaflet = VCO.Map.extend({
 	/*	Create Background Map
 	================================================== */
 	_createBackgroundMap: function(tiles) {
-
 		// TODO Check width and height
 		trace("CREATE BACKGROUND MAP");
 		if (!this._image_layer) {
@@ -174,7 +167,6 @@ VCO.Map.Leaflet = VCO.Map.extend({
 
 			}
 		}
-
 	},
 
 	/*	Create Layer Switch
@@ -442,14 +434,8 @@ VCO.Map.Leaflet = VCO.Map.extend({
 
 				marker.data.location.zoom = calculated_zoom;
 			}
-
-
 		};
-
-
 	},
-
-
 
 	/*	Line
 	================================================== */
@@ -643,9 +629,13 @@ VCO.Map.Leaflet = VCO.Map.extend({
 				this._viewTo(this._markers[this.current_marker].data.location, {zoom:this._getMapZoom()});
 			}
 		};
+	},
+
+	destroyMap: function(){
+		if(this._map){
+			this._map = null;
+		}
 	}
-
-
 });
 
 /*	Overwrite and customize Leaflet functions

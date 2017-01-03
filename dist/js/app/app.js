@@ -79,7 +79,9 @@ function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $tran
         urlTemplate: "dist/translations/{lang}/{part}.json"
     });
 
+    $translateProvider.usePostCompiling(true);
     $translatePartialLoaderProvider.addPart('app');
+    $translateProvider.addInterpolation('translateService');
 
     console.log("Language Loaded");
 
@@ -107,7 +109,7 @@ function pagesConfig($stateProvider){
     }
 };
 
-function tourConfig(stateHelperProvider, $urlRouterProvider, translatePluggableLoaderProvider, $translatePartialLoaderProvider){
+function tourConfig(stateHelperProvider, $urlRouterProvider, $translateProvider, translatePluggableLoaderProvider, $translatePartialLoaderProvider){
     stateHelperProvider.state({
         abstract: true,
         name: "app.tour",
@@ -128,9 +130,11 @@ function tourConfig(stateHelperProvider, $urlRouterProvider, translatePluggableL
             }
             return tourList;
         })()
-    });    
-
-    // translatePluggableLoaderProvider.useLoader('translateTourLoader');
+    });
+    $translateProvider.useInterpolation('translateService');
+    $translatePartialLoaderProvider.addPart("tarraco")
+    
+    
 };
 
 // function tourConfig($stateProvider){
@@ -211,7 +215,6 @@ function translateTourLoader($q, $timeout){
         }
         
         defer.resolve(translations);
-        console.log(defer);
         return defer.promise;
     }
 };
@@ -240,6 +243,29 @@ function translateTourLoader($q, $timeout){
 //         }
 //     };
 // };
+
+function translateService($interpolate){
+    var $locale;
+
+    return {
+ 
+    setLocale: function (locale) {
+      $locale = locale;
+    },
+ 
+    getInterpolationIdentifier: function () {
+      return 'custom';
+    },
+ 
+    interpolate: function (string, interpolateParams, sanitizeStrategy) {
+      return $locale + '- ' + $interpolate(string)(interpolateParams, sanitizeStrategy) + ' -' + $locale;
+    },
+
+    changeLocale: function(){
+
+    }
+  };
+}
 
 // Get Factory to return array of JSON
 function mapsFactory($state, $stateParams, $http, $q){
@@ -280,15 +306,10 @@ function tourCtrl($scope, $location, $stateParams, $translate, $translatePartial
 
 };
 
-function mapsCtrl($scope, $location, $stateParams, $q, $timeout, $translate, $translatePartialLoader){
+function mapsCtrl($scope, $rootScope, $location, $stateParams, $q, $timeout, $translate, $translatePartialLoader){
 
-    $timeout(function() {
         $translatePartialLoader.addPart($stateParams.name);
         $translate.refresh()
-        console.log("Part Added");
-    }, 3000);
-
-    
 
 	$scope.countchange = function(langKey){
 		$translate.use(langKey);
@@ -300,35 +321,14 @@ function mapsCtrl($scope, $location, $stateParams, $q, $timeout, $translate, $tr
             map = {n: "asddasds"}
             // $scope.storytour.slide = new VCO.StoryTour.Slide(storytour, "json/period_2.json", storymap_options);
         }
-    });             
-
-    // $scope.transData = function(){
-    //     var translations = {};
-    //     translateFactory.getData()
-    //                 // then() called when son gets back
-    //                 .then(function(data) {
-    //                     // promise fulfilled
-    //                     if (data === 'en') {
-    //                         translations = tour.translations[data]
-    //                         console.log(translations);
-    //                         return translations;
-    //                     } else {
-    //                         console.log('error', error);
-    //                         // prepareSundayRoastDinner();
-    //                     }
-    //                 }, function(error) {
-    //                     // promise rejected, could log the error with: console.log('error', error);
-    //                     console.log('error', error);
-    //                     // prepareSundayRoastDinner();
-    //                 });
-    // }()
+    });
 
     $scope.map = {n: "asddasds"}
     $scope.mapData = tour.maps[$stateParams.id].maps;
     $scope.jsonData = $stateParams.name;
 };
 
-function tourDirective(){
+function tourDirective($timeout){
 
     var link = function($scope, element, attr){
         $scope.storymap_options = {
@@ -416,8 +416,10 @@ function tourDirective(){
                 }
             }]
         };
-        $scope.storytour = new VCO.StoryTour("storytour", "json/tarraco.json", $scope.storymap_options);
-        // $scope.storytour = new VCO.StoryTour("storytour", "json/" + $scope.jsonData + ".json", $scope.storymap_options);
+            $scope.storytour = new VCO.StoryTour("storytour", "json/tarraco.json", $scope.storymap_options);
+            $timeout(function() {
+                $scope.test = new VCO.StoryTour.Slide($scope.storytour, "json/puteoli.json", $scope.storymap_options);
+            }, 1000);
     }
     return {
         restrict: 'EA',
@@ -459,7 +461,7 @@ pagesConfig.$inject = ["$stateProvider"],
 
 appConfig.pushLateModules(appConfig.appName + ".tour"),
 angular.module(appConfig.appName + ".tour").config(tourConfig),
-tourConfig.$inject = ["stateHelperProvider", "$urlRouterProvider", "translatePluggableLoaderProvider", "$translatePartialLoaderProvider"];
+tourConfig.$inject = ["stateHelperProvider", "$urlRouterProvider", "$translateProvider", "translatePluggableLoaderProvider", "$translatePartialLoaderProvider"];
 
 angular.module(appConfig.appName).run(runCtrl),
 runCtrl.$inject = ["$rootScope", "$translate", "tmhDynamicLocale", "$location", "$stateParams", "$state"]
@@ -469,6 +471,9 @@ translateTourLoader.$inject = ["$q", "$timeout"],
 
 // angular.module(appConfig.appName).factory("translateFactory", translateFactory),
 // translateFactory.$inject = ["$http", "$q", "translateTourLoader"],
+
+angular.module(appConfig.appName + ".tour").service("translateService", translateService),
+translateService.$inject = ["$interpolate"],
 
 angular.module(appConfig.appName + ".tour").factory("mapsFactory", mapsFactory),
 mapsFactory.$inject = ["$state", "$stateParams", "$http", "$q"],
@@ -489,10 +494,10 @@ angular.module(appConfig.appName + ".tour").controller("tourCtrl", tourCtrl),
 tourCtrl.$inject = ["$scope", "$location", "$stateParams", "$translate", "$translatePartialLoader"],
 
 angular.module(appConfig.appName + ".tour").controller("mapsCtrl", mapsCtrl),
-mapsCtrl.$inject = ["$scope", "$location", "$stateParams", "$q", "$timeout", "$translate", "$translatePartialLoader"],
+mapsCtrl.$inject = ["$scope", "$rootScope", "$location", "$stateParams", "$q", "$timeout", "$translate", "$translatePartialLoader"],
 
 angular.module(appConfig.appName + ".tour").directive("tourDirective", tourDirective),
-tourDirective.$inject = ["mapsService"]
+tourDirective.$inject = ["$timeout"]
 
 }({VCO}, function() {return this;}() ),
 
