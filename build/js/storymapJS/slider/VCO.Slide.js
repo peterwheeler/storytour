@@ -228,8 +228,6 @@ VCO.Slide = VCO.Class.extend({
 		if (this.has.text || this.has.headline) {
 			this._text = new VCO.Media.Text(this.data.text, {title:this.has.title});
 		}
-
-		console.log("Text Created");
 		
 		// Add to DOM
 		if (!this.has.text && !this.has.headline && this.has.media) {

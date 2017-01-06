@@ -44,19 +44,39 @@ tour.maps = [
 		title: "Tarraco tour",
 		language: "",
 		maps: [{
-			map_type: "",
-			map_name: "",
-			map_mini: true,
-			map_as_image: false, //for zoomify
-			calculate_zoom: false, 
-			zoomify: {  //for zoomify
-					"name": "",
-		  			"path": "",
-		  			"width": 5200,
-		  			"height": 5844,
-		  			"tolerance": 0.9,
-		  			"attribution": ""
-					}
+			map_type: "mapTiler",
+			map_name: "Reconstruction",
+			map_mini: false,
+			map_as_image: false,
+			map_as_overlay: false,
+			calculate_zoom: false,
+			attribution: 		"Maps designed by <a href='https://artasmedia.com/'' target='_blank' class='vco-knightlab-brand'>ArtasMedia</a>",
+			mapTiler: {
+				path: 				"maps/plan_en_01/",
+				lat:				"",
+				lng: 				"",
+				zoom: 				14,
+				minZoom:        	14,
+				maxZoom:        	17
+			}	
+		},
+		{
+			map_type: "mapTiler",
+			map_name: "Plan",
+			map_mini: false,
+			map_as_image: false,
+			map_as_overlay: false,
+			calculate_zoom: false,
+			attribution: 		'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
+			mapTiler: {
+				path: 				"maps/plan_en_02/",
+				lat:				"",
+				lng: 				"",
+				zoom: 				14,
+				minZoom:        	14,
+				maxZoom:        	17
+				
+			}
 		}],
 		overlays: [{
 			imageUrl: "",
@@ -73,26 +93,39 @@ tour.maps = [
 		title: "Puteoli tour",
 		language: "",
 		maps: [{
-			map_type: "",
-			map_name: "",
-			map_mini: true,
-			map_as_image: false, //for zoomify
-			calculate_zoom: false, 
-			zoomify: { //for zoomify
-					"name": "",
-		  			"path": "",
-		  			"width": 5200,
-		  			"height": 5844,
-		  			"tolerance": 0.9,
-		  			"attribution": ""
-					}
-		}],
-		overlays: [{
-			imageUrl: "",
-			imageBounds: "",
-			imageOptions: {
-				"opacity": "",
-				"attribution": ""
+			map_type: "mapTiler",
+			map_name: "Ricostruzione",
+			map_mini: false,
+			map_as_image: false,
+			map_as_overlay: false,
+			calculate_zoom: false,
+			attribution: 		'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
+			mapTiler: {
+				path: 				"maps/plan_it_01/",
+				lat:				"",
+				lng: 				"",
+				zoom: 				14,
+				minZoom:        	14,
+				maxZoom:        	17
+				
+			}	
+		},
+		{
+			map_type: "mapTiler",
+			map_name: "Plan",
+			map_mini: false,
+			map_as_image: false,
+			map_as_overlay: false,
+			calculate_zoom: false,
+			attribution: 		'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
+			mapTiler: {
+				path: 				"maps/plan_it_02/",
+				lat:				"",
+				lng: 				"",
+				zoom: 				14,
+				minZoom:        	14,
+				maxZoom:        	17
+				
 			}
 		}]
 	}

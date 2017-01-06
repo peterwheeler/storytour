@@ -53,8 +53,6 @@ var languageCounter = function() {
     };
 }();
 
-console.log(languageCounter);
-
 function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $translateProvider, $translatePartialLoaderProvider, translatePluggableLoaderProvider, $urlMatcherFactoryProvider, tmhDynamicLocaleProvider){
     var urlMatcher = $urlMatcherFactoryProvider.compile("/{lang:(?:" + languageCounter.langUrls + ")}/");
     $stateProvider.state("app", {
@@ -122,7 +120,7 @@ function tourConfig(stateHelperProvider, $urlRouterProvider, $translateProvider,
             for (var k = 0; k < tour.maps.length; k++) {
                 var l = tour.maps[k];
                 tourList.push({name: l.id,
-                                url: "tour/" + l.id,
+                                url: "tour/" + l.id + "?start_at_slide",
                                 controllerAs: "vm",
                                 controller: "mapsCtrl",
                                 params: {id: k, name: l.id}
@@ -193,8 +191,6 @@ function runCtrl($rootScope, $translate, tmhDynamicLocale, $location, $statePara
         }
         console.log("CurrentLang: " + $rootScope.currentLang, "Use: " + $translate.use(), "Proposed: " + $translate.proposedLanguage(), "Locale: " + tmhDynamicLocale.get());
     });
-
-    // console.log(VCO);
 
     $rootScope.$on('$translatePartialLoaderStructureChanged', function () {
         $translate.refresh();
@@ -291,19 +287,25 @@ function rootCtrl($scope, $window, $log, $locale, localStorageService, $translat
     tmhDynamicLocale.set($rootScope.startLangId);
 
     $scope.lang = $stateParams.lang;
+
+    angular.element(function() {
+        $(".menu-collapse").sideNav({
+            menuWidth: 280, // Default is 240
+            edge: 'right', // Choose the horizontal origin
+            closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+            draggable: true // Choose whether you can drag to open on touch screen
+        });
+        $('.collapsible').collapsible();
+    });
 };
 
 function aboutCtrl($scope, $location, $stateParams, $translate, $translatePartialLoader){
-
 };
 
 function teamCtrl($scope, $location, $stateParams, $translate, $translatePartialLoader){
-
 };
 
 function tourCtrl($scope, $location, $stateParams, $translate, $translatePartialLoader){
-    $scope.tour = {n: "jas"}
-
 };
 
 function mapsCtrl($scope, $rootScope, $location, $stateParams, $q, $timeout, $translate, $translatePartialLoader){
@@ -322,10 +324,6 @@ function mapsCtrl($scope, $rootScope, $location, $stateParams, $q, $timeout, $tr
             // $scope.storytour.slide = new VCO.StoryTour.Slide(storytour, "json/period_2.json", storymap_options);
         }
     });
-
-    $scope.map = {n: "asddasds"}
-    $scope.mapData = tour.maps[$stateParams.id].maps;
-    $scope.jsonData = $stateParams.name;
 };
 
 function tourDirective($timeout){
@@ -346,85 +344,38 @@ function tourDirective($timeout){
             map_mini: true,
             map_as_image: false,
             calculate_zoom: false,
-            maps:  [{
-                map_type: "mapTiler",
-                map_name: "Reconstruction",
-                map_mini: false,
-                map_as_image: false,
-                map_as_overlay: false,
-                calculate_zoom: false,
-                attribution:        "Maps designed by <a href='https://artasmedia.com/'' target='_blank' class='vco-knightlab-brand'>ArtasMedia</a>",
-                mapTiler: {
-                    path:               "maps/period_01/",
-                    lat:                "",
-                    lng:                "",
-                    zoom:               14,
-                    minZoom:            14,
-                    maxZoom:            17
-                }   
-            },
-            {
-                map_type: "mapTiler",
-                map_name: "Plan",
-                map_mini: false,
-                map_as_image: false,
-                map_as_overlay: false,
-                calculate_zoom: false,
-                attribution:        'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
-                mapTiler: {
-                    path:               "maps/plan_en_01/",
-                    lat:                "",
-                    lng:                "",
-                    zoom:               14,
-                    minZoom:            14,
-                    maxZoom:            17
-                    
-                }
-            },
-            {
-                map_type: "mapTiler",
-                map_name: "Satellite",
-                map_mini: false,
-                map_as_image: false,
-                map_as_overlay: false,
-                calculate_zoom: false,
-                attribution:        "Satellite &#9400; Digital Globe 2014",
-                mapTiler: {
-                    path:               "maps/satellite/",
-                    lat:                "",
-                    lng:                "",
-                    zoom:               14,
-                    minZoom:            14,
-                    maxZoom:            17
-                }
-            },
-            {
-                map_type: "mapTiler",
-                map_name: "Satellite",
-                map_mini: false,
-                map_as_image: false,
-                map_as_overlay: true,
-                calculate_zoom: false,
-                attribution:        "Satellite &#9400; Digital Globe 2014",
-                mapTiler: {
-                    path:               "maps/satellite/",
-                    lat:                "",
-                    lng:                "",
-                    zoom:               14,
-                    minZoom:            14,
-                    maxZoom:            17
-                }
-            }]
+            maps: $scope.mapData
         };
-            $scope.storytour = new VCO.StoryTour("storytour", "json/tarraco.json", $scope.storymap_options);
-            $timeout(function() {
-                $scope.test = new VCO.StoryTour.Slide($scope.storytour, "json/puteoli.json", $scope.storymap_options);
-            }, 1000);
+
+        $scope.storytour = new VCO.StoryTour("storytour", "json/" + $scope.jsonData + ".json", $scope.storymap_options);
+            // $timeout(function() {
+            //     $scope.test = new VCO.StoryTour.Slide($scope.storytour, "json/" + $scope.jsonData + ".json", $scope.storymap_options);
+            // }, 1000);
+
+        $timeout(function () {
+            angular.element(function() {
+                $('.menubar-collapse').sideNav({
+                menuWidth: 280, // Default is 240
+                edge: 'left', // Choose the horizontal origin
+                closeOnClick: true, // Closes side-nav on <a> clicks, useful for Angular/Meteor
+                draggable: true // Choose whether you can drag to open on touch screen
+                }); 
+                $('.collapsible-menubar').collapsible();
+                $('.modal').modal();
+                $('.tooltipped').tooltip({delay: 50});
+            });
+        }, 500);
     }
     return {
         restrict: 'EA',
         replace: false,
         templateUrl: 'partials/maps.html',
+        controller: function($scope, $stateParams){
+            $scope.langData = $stateParams.lang;
+            $scope.jsonData = $stateParams.name;
+            $scope.mapData = tour.maps[$stateParams.id].maps;
+        },
+        controllerAs: 'vm',
         scope: true,
         link: link
     };

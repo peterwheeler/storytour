@@ -7098,8 +7098,6 @@
 			if (this.has.text || this.has.headline) {
 				this._text = new VCO.Media.Text(this.data.text, {title:this.has.title});
 			}
-	
-			console.log("Text Created");
 			
 			// Add to DOM
 			if (!this.has.text && !this.has.headline && this.has.media) {
@@ -18995,7 +18993,7 @@ VCO.StoryTour = VCO.Class.extend({
 		this._el.menubar.id = 'slide-out-menubar';
 		this._menubar = new VCO.MenuBar(this._el.menubar, this._menubarContainer, this.options);
 		this._el.menubarOpen = VCO.Dom.create('div', 'menubar-opener', this._menubarContainer);
-		this._el.menubarOpen.innerHTML = '<a data-activates="slide-out-menubar" id="menubar-collapse-id" class="menubar-collapse show-on-small"><i class="material-icons new-medium">tune</i></a>';
+		this._el.menubarOpen.innerHTML = '<a data-activates="slide-out-menubar" id="menubar-collapse-id" class="menubar-collapse show-on-small"><i class="material-icons new-medium">&#xE429;</i></a>';
 		this._el.viewSwitch = VCO.Dom.create('div', 'view-switch hide-on-med-and-up', this._menubarContainer);
 		this._el.viewSwitch.innerHTML = '<a class="switch-view-layer show-on-small"><i class="material-icons new-medium">&#xE25D;</i></a>';
 
