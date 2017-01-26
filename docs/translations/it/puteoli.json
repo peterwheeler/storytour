@@ -1,0 +1,39 @@
+{
+"slides": [
+    {
+    "text": {
+        "headline": "Il Bacino di Claudio",
+        "text": "Durante la fase di Traiano, il bacino di Claudio dovrebbe aver continuato ad essere pieno di navi. Sappiamo ancora molto poco sulla funzione dei bacini portuali e su come fossero connessi l'uno all'altro. Presumibilmente, il bacino di Claudio, il bacino di Traiano e la Darsena, insieme alla parte del Tevere a Ostia a sud, avrebbero servito a diversi tipi di trasporto e avrebbe anche permesso il controllo delle diverse fasi della gestione dei beni. É possibile che le grandi navi che trasportavano il grano dal Nord Africa e dall'Egitto ormeggiassero temporaneamente protette dal  bacino esterno, fino all’assegnazione di un posto lungo le banchine che delimitavano i Grandi Magazzini di Traiano e il Portico di Claudio, mentre quelle che trasportano altri beni avrebbero ormeggiato nel bacino traianeo."
+    },
+    "location": {
+        "name": "location",
+        "lat": 41.778086,
+        "lon": 12.246366,
+        "zoom": 16,
+        "line": false
+    },
+    "media": {
+        "url": "images/images_2/claudian_basin.jpg",
+        "credit": "Simon Keay / University of Southampton",
+        "caption": ""
+    }
+},
+{
+    "text": {
+        "headline": "Il Monte Giulio",
+        "text": "Questa zona si trova immediatamente alle spalle della banchina orientale del bacino di Claudio e presenta una serie di grandi edifici rettangolari interpretati come magazzini, bagni e una cisterna d'acqua. Nonostante la cisterna sia stata scavata, non si conosce nulla della sua cronologia."
+    },
+    "location": {
+        "name": "location",
+        "lat": 41.784614,
+        "lon": 12.259240,
+        "zoom": 16,
+        "line": false
+    },
+    "media": {
+        "url": "images/images_2/monte_giulio.jpg",
+        "credit": "Simon Keay / University of Southampton",
+        "caption": "Resti della cisterna traianea nell’area di Monte Giulio"
+    }
+}]
+}

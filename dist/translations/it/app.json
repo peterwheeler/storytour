@@ -1,19 +1,27 @@
 {
-	"HOME": {
-		"TITLE": "Storytouro",
-		"HEADLINE": "The story tour appo",
-		"PREFIX": "it",
-		"NAME_EN": "Inglese",
-		"NAME_ES": "Spagnolo",
-		"NAME_IT": "Italiano"
+	"homepage": {
+		"title": "Storytouro",
+		"headline": "The story tour appo",
+		"start-button": "inicio",
+		"about-link": "Informazioni",
+		"prefix": "it"
 	},
-	"ABOUT": {
-
+	"menu": {
+		"title": "Storytour",
+		"select-about": "Informazioni",
+		"select-lang": "Lingua",
+		"select-tour": "Tours",
+		"lang-1": "Inglese",
+		"lang-2": "Spagnolo",
+		"lang-3": "Italiano",
+		"tour-1": "Touro #1",
+		"tour-2": "Touro #2",
+		"tour-3": "Touro #3"
 	},
-	"TEAM": {
-
-	},
-	"TOUR": {
-		
+	"pages": {
+		"about": {
+			"title": "About Storytouro",
+			"headline": "About the storytour appo"
+		}
 	}
 }

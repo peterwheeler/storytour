@@ -1,4 +1,4 @@
-    <ul id="slide-out" class="side-nav" style="transform: translateX(-100%);">
+    <ul id="slide-out" class="side-nav" style="transform: translateX(-100%);" ng-controller="menuCtrl">
         <div class="close-slide-out">
             <a ng-href="#" data-activates="slide-out" class="show-on-small">
                 <i class="material-icons new-medium">&#xE315;</i>
@@ -6,19 +6,23 @@
         </div>
         <div class="menu-header">
             <a ui-sref="app" class="brand-logo center logo-container">
-                <h3 class="center">{{'HOMEPAGE.TITLE' | translate}}</h3>
+                <h3 class="center" translate>{{'menu.title'}}</h3>
             </a>
         </div>
         <li>
             <div class="divider" style="margin: 15px 0px;"></div>
         </li>
-        <li class="bold"><a ui-sref="about" class="about-link waves-effect waves-teal"><i class="material-icons">&#xE88F;</i>{{'MENU.ABOUT' | translate}}</a></li>
+        <div>
+        <li class="bold" ng-repeat="page in pageList">
+            <a ui-sref="app.{{page.url}}" class="about-link waves-effect waves-teal"><i class="material-icons">&#xE88F;</i>{{'menu.select-about' | translate}}</a>
+        </li>
         <ul class="collapsible collapsible-accordion">
-            <li class="bold"><a class="collapsible-header waves-effect waves-teal"><i class="material-icons">language</i>{{'MENU.SELECTALANG' | translate}}</a>
+            <li class="bold" ng-if="langList.length > 1">
+                <a class="collapsible-header waves-effect waves-teal"><i class="material-icons">&#xE894;</i>{{'menu.select-lang' | translate}}</a>
                 <div class="collapsible-body">
                     <ul>
-                        <li ng-repeat="country in region.countries()">
-                            <a ng-href="/{{country.language}}/{{remainingUrl(country.language)}}" tooltip="{{country.languageLabel() | translate}}">{{country.languageLabel() | translate}}</a>
+                        <li ng-repeat="language in langList">
+                            <a ui-sref="{lang: language.url}" translate="menu.lang-{{language.id}}"></a>
                         </li>
                     </ul>
                 </div>
@@ -26,27 +30,12 @@
             <li>
                 <div class="divider" style="margin: 0px;"></div>
             </li>
-            <li class="bold active"><a class="collapsible-header waves-effect waves-teal active"><i class="material-icons">&#xE865;</i>{{'MENU.SELECTATOUR' | translate}}</a>
+            <li class="bold active">
+                <a class="collapsible-header waves-effect waves-teal active"><i class="material-icons">&#xE865;</i>{{'menu.select-tour' | translate}}</a>
                 <div class="collapsible-body">
                     <ul>
-                        <li>
-                            <a ng-href="{{urlBegin()}}/{{localizedPage(0)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.CLAUDIAN' | translate}}</a>
-                        </li>
-                        <li>
-                            <a ng-href="{{urlBegin()}}/{{localizedPage(1)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.TRAJANIC' | translate}}</a>
-                        </li>
-                        <li>
-                            <a ng-href="{{urlBegin()}}/{{localizedPage(2)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.SEVERAN' | translate}}</a>
-                        </li>
-                        <li>
-                            <a ng-href="{{urlBegin()}}/{{localizedPage(3)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.FIFTHSEVENTH' | translate}}</a>
-                        </li>
-                        <li>
-                            <a ng-href="{{urlBegin()}}/{{localizedPage(4)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.MODERN' | translate}}</a>
-                        </li>
-                        <div class="divider" style="margin: 0px;"></div>
-                        <li>
-                            <a ng-href="{{urlBegin()}}/{{localizedPage(5)}}" tooltip="{{country.languageLabel() | translate}}">{{'TOURS.TIMELINE' | translate}}</a>
+                        <li ng-repeat="map in tourList">
+                            <a ui-sref="app.tour.{{map.url}}" translate="menu.tour-{{map.id}}"></a>
                         </li>
                     </ul>
                 </div>
@@ -58,4 +47,4 @@
         <i class="material-icons new-medium overlay-toggle btn-open">&#xE5D2;</i>
         </a>
     </div>
-    <ui-view/>
+    <div id="content-view" ui-view>

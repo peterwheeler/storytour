@@ -1,19 +1,27 @@
 {
-	"HOME": {
-		"TITLE": "Storytour",
-		"HEADLINE": "The story tour app",
-		"PREFIX": "en",
-		"NAME_EN": "English",
-		"NAME_ES": "Spanish",
-		"NAME_IT": "Italian"
+	"homepage": {
+		"title": "Storytour",
+		"headline": "The story tour app",
+		"start-button": "Start",
+		"about-link": "About",
+		"prefix": "en"
 	},
-	"ABOUT": {
-
+	"menu": {
+		"title": "Storytour",
+		"select-about": "About",
+		"select-lang": "Languages",
+		"select-tour": "Tours",
+		"lang-1": "English",
+		"lang-2": "Spanish",
+		"lang-3": "Italian",
+		"tour-1": "Tour #1",
+		"tour-2": "Tour #2",
+		"tour-3": "Tour #3"
 	},
-	"TEAM": {
-
-	},
-	"TOUR": {
-		
+	"pages": {
+		"about": {
+			"title": "About Storytour",
+			"headline": "About the storytour app"
+		}
 	}
 }

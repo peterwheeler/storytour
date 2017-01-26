@@ -1,19 +1,27 @@
 {
-	"HOME": {
-		"TITLE": "Storytoura",
-		"HEADLINE": "The story tour appa",
-		"PREFIX": "es",
-		"NAME_EN": "Inglés",
-		"NAME_ES": "Español",
-		"NAME_IT": "Italiano"
+	"homepage": {
+		"title": "Storytoura",
+		"headline": "The story tour appa",
+		"start-button": "Inicio",
+		"about-link": "Información",
+		"prefix": "es"
 	},
-	"ABOUT": {
-
+	"menu": {
+		"title": "Storytour",
+		"select-about": "Información",
+		"select-lang": "Idioma",
+		"select-tour": "Tours",
+		"lang-1": "Inglés",
+		"lang-2": "Español",
+		"lang-3": "Italiano",
+		"tour-1": "Toura #1",
+		"tour-2": "Toura #2",
+		"tour-3": "Toura #3"
 	},
-	"TEAM": {
-
-	},
-	"TOUR": {
-		
+	"pages": {
+		"about": {
+			"title": "About Storytoura",
+			"headline": "About the storytour appa"
+		}
 	}
 }

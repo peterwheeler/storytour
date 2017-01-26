@@ -4,23 +4,23 @@
 
 <!-- <div class="container"> -->
 <div class="body-content">
-  <h1 class="body-header center">{{'HOME.TITLE' | translate}}</h1>
+  <h1 class="body-header center" translate>{{'homepage.title'}}</h1>
   <div class="row center">
-    <h4 class="header col s12 light center">{{'HOME.HEADLINE' | translate}}</h4>
+    <h4 class="header col s12 light center" translate>{{'homepage.headline'}}</h4>
   </div>
   <div class="row center">
-    <a ui-sref="app.tour" class="btn-large waves-effect waves-light #b2dfdb lighten-4">{{'HOMEPAGE.START' | translate}}</a>
+    <a ui-sref="app.tour.{{firstTour}}" class="btn-large waves-effect waves-light #b2dfdb lighten-4" translate>{{'homepage.start-button'}}</a>
   </div>
   <div class="row center">
- 	<a class="body-text text-lighten-4" ui-sref="app.about">{{'HOMEPAGE.ABOUT' | translate}}</a>
+ 	<a class="body-text text-lighten-4" ui-sref="app.about" translate>{{'homepage.about-link'}}</a>
   </div>
 </div>
 <!-- </div> -->
 
-<footer class="footer">
+<footer class="footer-home">
 	<div class="left-align">
 		<div class="logo-holder">
-		Image by <a ng-href="https://artasmedia.com/" target="_blank"><img src="logos/artas.jpg" alt="ArtasMedia"></a>
+		  Relevant links
 		</div>
 	</div>
 </footer>

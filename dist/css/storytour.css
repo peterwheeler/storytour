@@ -1,0 +1,55 @@
+/* Vendor Overrides
+============================================================================= */
+.vco-menu a {
+  color: #000;
+}
+.vco-menu .menu-header {
+  margin: 5px 0px 15px 20px;
+}
+.vco-menu .menu-header h3 {
+  margin: 0px;
+}
+.vco-menu .close-slide-out a {
+  padding: 10px 10px 0px 0px;
+}
+.vco-menu span.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+.vco-layout-landscape .vco-storyslider .vco-slidenav-next .vco-slidenav-icon:before,
+.vco-layout-landscape .vco-storyslider .vco-slidenav-end .vco-slidenav-icon:before,
+.vco-layout-landscape .vco-storyslider .vco-slidenav-previous .vco-slidenav-icon:before,
+.vco-layout-landscape .vco-storyslider .vco-slidenav-start .vco-slidenav-icon:before {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 20px;
+  border: none;
+}
+.leaflet-control-zoom,
+.leaflet-control-layers {
+  border: 1px solid #000;
+}
+.leaflet-bottom .leaflet-control {
+  margin-bottom: 20px;
+  clear: none;
+}
+.leaflet-bottom .leaflet-control-opacity {
+  margin-left: 40px;
+  float: right;
+  max-width: 180px;
+}
+.leaflet-bottom .leaflet-control-opacity .thumb {
+  display: none;
+}
+.vco-message-content .message-tooltip,
+.vco-message-content .message-tooltip a,
+.vco-message-content .message-tooltip i,
+.vco-message-content .card-content a {
+  color: #000;
+}
+.vco-message-content .message-tooltip a:hover,
+.vco-message-content .card-content a:hover {
+  text-decoration: none;
+}
+i.new-medium {
+  font-size: 2.5rem;
+}

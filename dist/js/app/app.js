@@ -20,33 +20,37 @@ var id;
 console.log("Angular is working");
 
 var languageCounter = function() {
-    var ids = [];
-    var preferredId;
-    var langIds;
-    var urls = [];
-    var preferredUrl;
-    var langUrls;
+    var ids = [],
+    locales = [],
+    preferredLocale,
+    langLocales,
+    urls = [],
+    preferredUrl,
+    langUrls;
 
-    preferredId = tour.languages[0].id;
-    preferredUrl = tour.languages[0].id.split("-")[0];
+    preferredLocale = tour.languages[0].locale;
+    preferredUrl = tour.languages[0].locale.split("-")[0];
 
     if (tour.languages.length > 1) {
         for (var g = 0; g < tour.languages.length; g++) {
             var h = tour.languages[g];
-            ids.push(h.id);
-            urls.push(h.id.split("-")[0]);
+            ids.push(g.id);
+            locales.push(h.locale);
+            urls.push(h.locale.split("-")[0]);
         }
     } else {
         ids.push(tour.languages[0].id);
-        urls.push(tour.languages[0].id.split("-")[0]);
+        locales.push(tour.languages[0].locale);
+        urls.push(tour.languages[0].locale.split("-")[0]);
     }
 
-    langIds = ids.join("|");
+    langLocales = locales.join("|");
     langUrls = urls.join("|");
     return {
-        preferredId: preferredId,
         ids: ids,
-        langIds: langIds,
+        preferredLocale: preferredLocale,
+        locales: locales,
+        langLocales: langLocales,
         preferredUrl: preferredUrl,
         urls: urls,
         langUrls: langUrls
@@ -74,22 +78,21 @@ function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $tran
     $locationProvider.hashPrefix("!");
 
     $translateProvider.useLoader('$translatePartialLoader', {
-        urlTemplate: "dist/translations/{lang}/{part}.json"
+        urlTemplate: "/translations/{lang}/{part}.json"
     });
 
-    $translateProvider.usePostCompiling(true);
     $translatePartialLoaderProvider.addPart('app');
     $translateProvider.addInterpolation('translateService');
 
     console.log("Language Loaded");
 
-    $translateProvider.preferredLanguage(languageCounter.preferredId);
+    $translateProvider.preferredLanguage(languageCounter.preferredLocale);
     $translateProvider.useLocalStorage();
 	// Enable escaping of HTML
     $translateProvider.useSanitizeValueStrategy("escaped");
     
     tmhDynamicLocaleProvider.localeLocationPattern("/js/angular/i18n/default/angular-locale_{{locale}}.js");
-    tmhDynamicLocaleProvider.defaultLocale(languageCounter.preferredId);
+    tmhDynamicLocaleProvider.defaultLocale(languageCounter.preferredLocale);
 };
 
 function pagesConfig($stateProvider){
@@ -112,7 +115,7 @@ function tourConfig(stateHelperProvider, $urlRouterProvider, $translateProvider,
         abstract: true,
         name: "app.tour",
         url: "",
-        template: "<div tour-directive></div>",
+        template: '<div id="tour-view" tour-directive></div>',
         controller: "tourCtrl",
         controllerAs: "vm",
         children: (function(){
@@ -120,19 +123,16 @@ function tourConfig(stateHelperProvider, $urlRouterProvider, $translateProvider,
             for (var k = 0; k < tour.maps.length; k++) {
                 var l = tour.maps[k];
                 tourList.push({name: l.id,
-                                url: "tour/" + l.id + "?start_at_slide",
+                                url: l.url + "?start_at_slide",
                                 controllerAs: "vm",
                                 controller: "mapsCtrl",
-                                params: {id: k, name: l.id}
+                                params: {id: l.id, name: l.name, url: l.url}
                             })
             }
             return tourList;
         })()
     });
     $translateProvider.useInterpolation('translateService');
-    $translatePartialLoaderProvider.addPart("tarraco")
-    
-    
 };
 
 // function tourConfig($stateProvider){
@@ -175,19 +175,19 @@ function runCtrl($rootScope, $translate, tmhDynamicLocale, $location, $statePara
         $rootScope.currentLang = $stateParams.lang;
 
         if($rootScope.currentLang){
-            for (var i = 0; i < languageCounter.ids.length; i++) {
-                var urlCode = languageCounter.ids[i].split("-")[0];
+            for (var i = 0; i < languageCounter.locales.length; i++) {
+                var urlCode = languageCounter.locales[i].split("-")[0];
                 if(urlCode === $rootScope.currentLang){
                     $translate.use(urlCode);
                     $translate.refresh();
-                    tmhDynamicLocale.set(languageCounter.ids[i]);
+                    tmhDynamicLocale.set(languageCounter.locales[i]);
                 }
             }
         }
         else if (!$rootScope.currentLang) {
             $translate.use(languageCounter.preferredUrl);
             $translate.refresh();
-            tmhDynamicLocale.set(languageCounter.preferredId);
+            tmhDynamicLocale.set(languageCounter.preferredLocale);
         }
         console.log("CurrentLang: " + $rootScope.currentLang, "Use: " + $translate.use(), "Proposed: " + $translate.proposedLanguage(), "Locale: " + tmhDynamicLocale.get());
     });
@@ -254,7 +254,7 @@ function translateService($interpolate){
     },
  
     interpolate: function (string, interpolateParams, sanitizeStrategy) {
-      return $locale + '- ' + $interpolate(string)(interpolateParams, sanitizeStrategy) + ' -' + $locale;
+      return $interpolate(string)(interpolateParams, sanitizeStrategy);
     },
 
     changeLocale: function(){
@@ -278,7 +278,7 @@ function mapsService($state, $stateParams, $http, $q){
 
 function rootCtrl($scope, $window, $log, $locale, localStorageService, $translate, $filter, $state, $rootScope, $location, $stateParams, tmhDynamicLocale) {
     $rootScope.startLang = languageCounter.preferredUrl;
-    $rootScope.startLangId = languageCounter.preferredId;
+    $rootScope.startLangId = languageCounter.preferredLocale;
 
     if (!$rootScope.startLang || tour.languages.length === 0) {
         console.error('There are no languages provided');
@@ -286,6 +286,7 @@ function rootCtrl($scope, $window, $log, $locale, localStorageService, $translat
     $translate.use($rootScope.startLang);
     tmhDynamicLocale.set($rootScope.startLangId);
 
+    $scope.firstTour = tour.maps[0].id;
     $scope.lang = $stateParams.lang;
 
     angular.element(function() {
@@ -299,6 +300,31 @@ function rootCtrl($scope, $window, $log, $locale, localStorageService, $translat
     });
 };
 
+function menuCtrl($scope, $location, $state, $stateParams){
+    var langList = [];
+    var pageList = [];
+    var tourList =  [];
+
+    for (var a = 0; a < tour.languages.length; a++) {
+        var b = tour.languages[a];
+            langList.push({"id": b.id, "url": b.locale.split("-")[0]});
+    }
+
+    for (var c = 0; c < tour.pages.length; c++) {
+        var d = tour.pages[c];
+            pageList.push({"url": d.url, "name": d.name});
+    }
+
+    for (var e = 0; e < tour.maps.length; e++) {
+        var f = tour.maps[e];
+            tourList.push({"id": f.id, "url": f.url});
+    }
+
+    $scope.langList = langList;
+    $scope.pageList = pageList;
+    $scope.tourList = tourList;
+};
+
 function aboutCtrl($scope, $location, $stateParams, $translate, $translatePartialLoader){
 };
 
@@ -309,9 +335,8 @@ function tourCtrl($scope, $location, $stateParams, $translate, $translatePartial
 };
 
 function mapsCtrl($scope, $rootScope, $location, $stateParams, $q, $timeout, $translate, $translatePartialLoader){
-
-        $translatePartialLoader.addPart($stateParams.name);
-        $translate.refresh()
+    $translatePartialLoader.addPart($stateParams.name);
+    $translate.refresh()
 
 	$scope.countchange = function(langKey){
 		$translate.use(langKey);
@@ -327,7 +352,6 @@ function mapsCtrl($scope, $rootScope, $location, $stateParams, $q, $timeout, $tr
 };
 
 function tourDirective($timeout){
-
     var link = function($scope, element, attr){
         $scope.storymap_options = {
             script_path: "js",
@@ -434,6 +458,9 @@ mapsService.$inject = ["$state", "$stateParams", "$http", "$q"],
 
 angular.module(appConfig.appName).controller("rootCtrl", rootCtrl),
 rootCtrl.$inject = ["$scope", "$window", "$log", "$locale", "localStorageService", "$translate", "$filter", "$state", "$rootScope", "$location", "$stateParams", "tmhDynamicLocale"],
+
+angular.module(appConfig.appName).controller("menuCtrl", menuCtrl),
+menuCtrl.$inject = ["$scope", "$location", "$state", "$stateParams"],
 
 angular.module(appConfig.appName + ".pages").controller("aboutCtrl", aboutCtrl),
 aboutCtrl.$inject = ["$scope", "$location", "$stateParams", "$translate", "$translatePartialLoader"],

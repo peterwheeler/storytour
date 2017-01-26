@@ -6,17 +6,20 @@ var tour = {};
 // http://www.i18nguy.com/unicode/language-identifiers.html
 
 tour.languages = [ 
-	{
+	{	
+		id: 1,
 		name: "English",
-		id: "en-gb"
+		locale: "en-gb"
 	},
 	{
+		id: 2,
 		name: "Español",
-		id: "es-es",
+		locale: "es-es"
 	},
 	{
+		id: 3,
 		name: "Italiano",
-		id: "it-it",
+		locale: "it-it"
 	}
 ];
 
@@ -29,28 +32,24 @@ tour.pages = [
 		name: "About",
 		url: "about",
 		title: "About Storytour"
-	},
-	{
-		name: "Team",
-		url: "team",
-		title: "Storytours Team"
 	}
 ];
 
 tour.maps = [
 	{
-		name: "Tarraco",
-		id: "tarraco", // Used as url
-		title: "Tarraco tour",
+		id: 1,
+		name: "Tour one",
+		url: "tour-1", // Used as url
+		title: "Tour one",
 		language: "",
 		maps: [{
 			map_type: "mapTiler",
-			map_name: "Reconstruction",
+			map_name: "Map one",
 			map_mini: false,
 			map_as_image: false,
 			map_as_overlay: false,
 			calculate_zoom: false,
-			attribution: 		"Maps designed by <a href='https://artasmedia.com/'' target='_blank' class='vco-knightlab-brand'>ArtasMedia</a>",
+			attribution: 		"Maps designed by <a href='https://artasmedia.com/' target='_blank' class='vco-knightlab-brand'>ArtasMedia</a>",
 			mapTiler: {
 				path: 				"maps/plan_en_01/",
 				lat:				"",
@@ -62,7 +61,7 @@ tour.maps = [
 		},
 		{
 			map_type: "mapTiler",
-			map_name: "Plan",
+			map_name: "Plan one",
 			map_mini: false,
 			map_as_image: false,
 			map_as_overlay: false,
@@ -88,13 +87,14 @@ tour.maps = [
 		}]
 	},
 	{
-		name: "Puteoli",
-		id: "puteoli",
-		title: "Puteoli tour",
+		id: 2,
+		name: "Tour two",
+		url: "tour-2",
+		title: "Tour two",
 		language: "",
 		maps: [{
 			map_type: "mapTiler",
-			map_name: "Ricostruzione",
+			map_name: "Map two",
 			map_mini: false,
 			map_as_image: false,
 			map_as_overlay: false,
@@ -112,7 +112,7 @@ tour.maps = [
 		},
 		{
 			map_type: "mapTiler",
-			map_name: "Plan",
+			map_name: "Plan two",
 			map_mini: false,
 			map_as_image: false,
 			map_as_overlay: false,
