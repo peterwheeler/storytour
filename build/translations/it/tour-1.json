@@ -1,0 +1,78 @@
+{
+     "storymap": {
+        "slides": [
+            {
+                "text": {
+                    "headline": "Italiano Tour One",
+                    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam sem risus, sagittis in auctor sed, convallis a est. Donec hendrerit eu lorem at finibus. Donec non feugiat arcu. Vestibulum ac neque quis sapien fermentum lacinia eget egestas neque. Proin nisl nunc, ultricies ut ipsum vel, fermentum iaculis odio. Maecenas condimentum, lectus id volutpat tempus, lectus justo dictum quam, sed ornare sapien enim id eros. Curabitur aliquet tortor pulvinar risus pretium sagittis."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.7786,
+                    "lon": 12.2782,
+                    "zoom": 14,
+                    "line": false
+                },
+                "media": {
+                    "url": "",
+                    "credit": "",
+                    "caption": ""
+                }
+            },
+            {
+                "text": {
+                    "headline": "Elementum ut volutpat ut",
+                    "text": "Fusce elit nisl, suscipit in egestas blandit, ornare quis elit. Donec sodales fermentum libero nec dictum. Aenean bibendum sit amet arcu quis pulvinar. Donec at mauris nec tortor euismod bibendum. Cras at lacinia ipsum. Duis efficitur at erat rhoncus pulvinar. Aliquam vitae leo a tortor vulputate egestas. Curabitur libero tortor, commodo in ex vel, gravida suscipit mauris. Sed metus felis, molestie sed leo vitae, finibus fermentum odio. Sed tincidunt erat in cursus fringilla. Nullam tempor maximus libero, ac maximus urna. Maecenas id luctus ipsum, vel iaculis mauris. Integer volutpat ipsum nec urna luctus, vitae finibus nisl hendrerit. Aenean ligula ipsum, venenatis nec orci a, fringilla feugiat nisi. Cras fermentum sem nec est luctus lacinia. Donec euismod hendrerit cursus."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.7786,
+                    "lon": 12.2582,
+                    "zoom": 14,
+                    "line": false
+                },
+                "media": {
+                    "url": "",
+                    "credit": "",
+                    "caption": ""
+                }
+            },
+            {
+                "text": {
+                    "headline": "Posuere ac lacus",
+                    "text": "Nunc convallis sagittis purus ac facilisis. Nullam rhoncus pharetra libero, sed pellentesque ante tincidunt a. Nullam sed est diam. Phasellus lacinia euismod neque a scelerisque. Donec hendrerit est eu porta commodo. Vestibulum vel leo egestas, sollicitudin justo ut, pharetra lacus. Nam at porttitor turpis."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.775109,
+                    "lon": 12.234263, 
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "",
+                    "credit": "",
+                    "caption": ""
+                }
+            },
+            {
+                "text": {
+                    "headline": " Donec dictum laoreet dolor a molestie",
+                    "text": "Duis euismod vel massa quis feugiat. Vivamus molestie porttitor egestas. Etiam vitae turpis dapibus, pharetra elit ut, pellentesque ligula. Phasellus eget nunc lobortis, rhoncus turpis non, aliquam nulla. Vestibulum at metus laoreet, ullamcorper nulla vitae, ornare justo. Donec molestie varius turpis, sit amet consectetur augue condimentum id. In aliquet vulputate purus, et mattis dolor malesuada vitae. Etiam et lorem et justo porta fringilla sed nec sapien. In pretium id quam et feugiat. Donec sodales, mauris in bibendum malesuada, lacus nibh tempus turpis, nec commodo risus purus ac enim. In tempus nibh nec erat dapibus, id sagittis enim consequat. Fusce fringilla, risus facilisis sagittis venenatis, lectus ligula placerat arcu, vitae eleifend metus leo at tortor. Suspendisse felis nulla, lobortis a lobortis dignissim, imperdiet non metus."
+                },
+                "location": {
+                    "name": "location",
+                    "lat": 41.778086,
+                    "lon": 12.246366,
+                    "zoom": 16,
+                    "line": false
+                },
+                "media": {
+                    "url": "",
+                    "credit": "",
+                    "caption": ""
+                }
+            }
+        ]
+     }
+}

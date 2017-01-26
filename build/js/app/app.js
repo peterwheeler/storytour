@@ -17,8 +17,6 @@ var paramVal;
 var scopeDiv;
 var id;
 
-console.log("Angular is working");
-
 var languageCounter = function() {
     var ids = [],
     locales = [],
@@ -93,6 +91,8 @@ function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $tran
     
     tmhDynamicLocaleProvider.localeLocationPattern("/js/angular/i18n/default/angular-locale_{{locale}}.js");
     tmhDynamicLocaleProvider.defaultLocale(languageCounter.preferredLocale);
+
+    console.log("Angular is working");
 };
 
 function pagesConfig($stateProvider){
@@ -371,7 +371,7 @@ function tourDirective($timeout){
             maps: $scope.mapData
         };
 
-        $scope.storytour = new VCO.StoryTour("storytour", "json/" + $scope.jsonData + ".json", $scope.storymap_options);
+        $scope.storytour = new VCO.StoryTour("storytour", "translations/" + $scope.langData + "/" + $scope.jsonData + ".json", $scope.storymap_options);
             // $timeout(function() {
             //     $scope.test = new VCO.StoryTour.Slide($scope.storytour, "json/" + $scope.jsonData + ".json", $scope.storymap_options);
             // }, 1000);
@@ -396,7 +396,7 @@ function tourDirective($timeout){
         templateUrl: 'partials/maps.html',
         controller: function($scope, $stateParams){
             $scope.langData = $stateParams.lang;
-            $scope.jsonData = $stateParams.name;
+            $scope.jsonData = $stateParams.url;
             $scope.mapData = tour.maps[$stateParams.id].maps;
         },
         controllerAs: 'vm',

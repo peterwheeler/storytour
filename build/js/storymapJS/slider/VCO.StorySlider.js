@@ -33,6 +33,8 @@ VCO.StorySlider = VCO.Class.extend({
 		this._nav = {};
 		this._nav.previous = {};
 		this._nav.next = {};
+		this._nav.start = {};
+ 		this._nav.end = {}; 
 
 		// Slide Spacing
 		this.slide_spacing = 0;
@@ -244,14 +246,18 @@ VCO.StorySlider = VCO.Class.extend({
 			// Update Navigation and Info
 			if (this._slides[this.current_slide + 1]) {
 				this.showNav(this._nav.next, true);
+				this.showNav(this._nav.end, false);
 				this._nav.next.update(this.getNavInfo(this._slides[this.current_slide + 1]));
 			} else {
 				this.showNav(this._nav.next, false);
+				this.showNav(this._nav.end, true);
 			}
 			if (this._slides[this.current_slide - 1]) {
+				this.showNav(this._nav.start, false);
 				this.showNav(this._nav.previous, true);
 				this._nav.previous.update(this.getNavInfo(this._slides[this.current_slide - 1]));
 			} else {
+				this.showNav(this._nav.start, true);
 				this.showNav(this._nav.previous, false);
 			}
 
@@ -378,6 +384,8 @@ VCO.StorySlider = VCO.Class.extend({
 
 				this._nav.next.setColor(false);
 				this._nav.previous.setColor(false);
+				this._nav.start.setColor(false); 
+				this._nav.end.setColor(false);
 
 				// If background is not white, less fade is better
 				if (bg_color.r < 255 && bg_color.g < 255 && bg_color.b < 255) {
@@ -405,9 +413,13 @@ VCO.StorySlider = VCO.Class.extend({
 				if (bg_color.r < 255 && bg_color.g < 255 && bg_color.b < 255 || bg.image) {
 					this._nav.next.setColor(true);
 					this._nav.previous.setColor(true);
+					this._nav.start.setColor(true);
+					this._nav.end.setColor(true);
 				} else {
 					this._nav.next.setColor(false);
 					this._nav.previous.setColor(false);
+					this._nav.start.setColor(false);
+					this._nav.end.setColor(false);
 				}
 			}
 
@@ -477,6 +489,8 @@ VCO.StorySlider = VCO.Class.extend({
 		nav_pos = (this.options.height/2);
 		this._nav.next.setPosition({top:nav_pos});
 		this._nav.previous.setPosition({top:nav_pos});
+		this._nav.start.setPosition({top:nav_pos}); 
+ 		this._nav.end.setPosition({top:nav_pos}); 
 
 
 		// Position slides
@@ -505,6 +519,8 @@ VCO.StorySlider = VCO.Class.extend({
 		} else {
 			this._nav.next.updatePosition({right:"130"}, false, this.options.duration*3, this.options.ease, -100, true);
 			this._nav.previous.updatePosition({left:"-100"}, true, this.options.duration*3, this.options.ease, -200, true);
+			this._nav.end.updatePosition({right:"130"}, false, this.options.duration*3, this.options.ease, -100, true);
+			this._nav.start.updatePosition({left:"-100"}, true, this.options.duration*3, this.options.ease, -200, true);
 		}
 	},
 
@@ -520,7 +536,6 @@ VCO.StorySlider = VCO.Class.extend({
 		this._el.slider_container			= VCO.Dom.create('div', 'vco-slider-container vcoanimate', this._el.slider_container_mask);
 		this._el.slider_item_container		= VCO.Dom.create('div', 'vco-slider-item-container', this._el.slider_container);
 
-
 		// Update Size
 		this.options.width = this._el.container.offsetWidth;
 		this.options.height = this._el.container.offsetHeight;
@@ -528,12 +543,14 @@ VCO.StorySlider = VCO.Class.extend({
 		// Create Navigation
 		this._nav.previous = new VCO.SlideNav({title: "Previous", description: "description"}, {direction:"previous"});
 		this._nav.next = new VCO.SlideNav({title: "Next",description: "description"}, {direction:"next"});
+		this._nav.start = new VCO.SlideNav({title: "Start",description: "description"}, {direction:"start" , target: "start-modal"}); 
+ 		this._nav.end = new VCO.SlideNav({title: "End",description: "description"}, {direction:"end", target: "end-modal"});
 
 		// add the navigation to the dom
 		this._nav.next.addTo(this._el.container);
 		this._nav.previous.addTo(this._el.container);
-
-
+		this._nav.start.addTo(this._el.container); 
+ 		this._nav.end.addTo(this._el.container);
 
 		this._el.slider_container.style.left="0px";
 
@@ -558,18 +575,20 @@ VCO.StorySlider = VCO.Class.extend({
 	_initEvents: function () {
 		this._nav.next.on('clicked', this._onNavigation, this);
 		this._nav.previous.on('clicked', this._onNavigation, this);
-
+		this._nav.start.on('clicked', this._onNavigation, this);
+ 		this._nav.end.on('clicked', this._onNavigation, this);
+		
 		if (this._message) {
 			this._message.on('clicked', this._onMessageClick, this);
 		}
-
+		
 		if (this._swipable) {
 			this._swipable.on('swipe_left', this._onNavigation, this);
 			this._swipable.on('swipe_right', this._onNavigation, this);
+			this._swipable.on('swipe_back', this._onNavigation, this);
+			this._swipable.on('swipe_forward', this._onNavigation, this);
 			this._swipable.on('swipe_nodirection', this._onSwipeNoDirection, this);
 		}
-
-
 	},
 
 	_initData: function() {
