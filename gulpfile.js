@@ -99,9 +99,13 @@ gulp.task('demo-partials',['checkPartials'], function() {
 gulp.task("demo-build", function() {
     return gulp.src("./build/*.html")
         .pipe(useref({
-            change: function (content, target, options, alternateSearchPath) {
+            changeCSS: function (content, target, options, alternateSearchPath) {
                 // do something with `content` and return the desired HTML to replace the block content
-                return content.replace('/', target);
+                return content.replace('/css/', target);
+            },
+            changeJS: function (content, target, options, alternateSearchPath) {
+                // do something with `content` and return the desired HTML to replace the block content
+                return content.replace('/js/', target);
             }
         }))
         // .pipe(sourcemaps.init({loadMaps: true}))
