@@ -98,7 +98,12 @@ gulp.task('demo-partials',['checkPartials'], function() {
 
 gulp.task("demo-build", function() {
     return gulp.src("./build/*.html")
-        .pipe(useref())
+        .pipe(useref({
+            change: function (content, target, options, alternateSearchPath) {
+                // do something with `content` and return the desired HTML to replace the block content
+                return content.replace('/', target);
+            }
+        }))
         // .pipe(sourcemaps.init({loadMaps: true}))
         // Minifies only if it's a JavaScript file
         // .pipe(gulpIf("*.js", uglify()))
