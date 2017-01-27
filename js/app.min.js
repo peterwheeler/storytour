@@ -51,7 +51,7 @@ tour.maps = [
 			calculate_zoom: false,
 			attribution: 		"Maps designed by <a href='https://artasmedia.com/' target='_blank' class='vco-knightlab-brand'>ArtasMedia</a>",
 			mapTiler: {
-				path: 				"maps/plan_en_01/",
+				path: 				"http://www.southampton.ac.uk/~pw8g08/tour/maps/plan_en_01/",
 				lat:				"",
 				lng: 				"",
 				zoom: 				14,
@@ -68,7 +68,7 @@ tour.maps = [
 			calculate_zoom: false,
 			attribution: 		'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
 			mapTiler: {
-				path: 				"maps/plan_en_02/",
+				path: 				"http://www.southampton.ac.uk/~pw8g08/tour/maps/plan_en_02/",
 				lat:				"",
 				lng: 				"",
 				zoom: 				14,
@@ -101,7 +101,7 @@ tour.maps = [
 			calculate_zoom: false,
 			attribution: 		'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
 			mapTiler: {
-				path: 				"maps/plan_it_01/",
+				path: 				"http://www.southampton.ac.uk/~pw8g08/tour/maps/plan_en_03/",
 				lat:				"",
 				lng: 				"",
 				zoom: 				14,
@@ -119,7 +119,7 @@ tour.maps = [
 			calculate_zoom: false,
 			attribution: 		'Maps designed by <a href="https://artasmedia.com/" target="_blank" class="vco-knightlab-brand">ArtasMedia</a>',
 			mapTiler: {
-				path: 				"maps/plan_it_02/",
+				path: 				"http://www.southampton.ac.uk/~pw8g08/tour/maps/plan_en_04/",
 				lat:				"",
 				lng: 				"",
 				zoom: 				14,
