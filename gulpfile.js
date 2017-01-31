@@ -106,7 +106,11 @@ gulp.task("demo-build", function() {
             changeJS: function (content, target, options, alternateSearchPath) {
                 // do something with `content` and return the desired HTML to replace the block content
                 return content.replace('/js/', target);
-            }
+            },
+            changeBase: function (content, target, options, alternateSearchPath) {
+                // do something with `content` and return the desired HTML to replace the block content
+                return content.replace('/', target);
+            },
         }))
         // .pipe(sourcemaps.init({loadMaps: true}))
         // Minifies only if it's a JavaScript file
