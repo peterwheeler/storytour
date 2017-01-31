@@ -76,7 +76,7 @@ function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $tran
     $locationProvider.hashPrefix("!");
 
     $translateProvider.useLoader('$translatePartialLoader', {
-        urlTemplate: "../translations/{lang}/{part}.json"
+        urlTemplate: "translations/{lang}/{part}.json"
     });
 
     $translatePartialLoaderProvider.addPart('app');
@@ -89,7 +89,7 @@ function rootConfig($stateProvider, $urlRouterProvider, $locationProvider, $tran
 	// Enable escaping of HTML
     $translateProvider.useSanitizeValueStrategy("escaped");
     
-    tmhDynamicLocaleProvider.localeLocationPattern("../js/angular/i18n/default/angular-locale_{{locale}}.js");
+    tmhDynamicLocaleProvider.localeLocationPattern("js/angular/i18n/default/angular-locale_{{locale}}.js");
     tmhDynamicLocaleProvider.defaultLocale(languageCounter.preferredLocale);
 
     console.log("Angular is working");
