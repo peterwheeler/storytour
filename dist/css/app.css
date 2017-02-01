@@ -194,7 +194,7 @@ p:focus {
   color: #000;
 }
 .view-switch {
-  display: block;
+  display: none;
   position: absolute;
   width: 40px;
   right: 50%;
@@ -366,6 +366,9 @@ footer.page-footer {
   .shareButton {
     display: none;
   }
+  .view-switch {
+    display: block;
+  }
   /* Overlay */
   .tourCarousel {
     display: none;
@@ -446,6 +449,9 @@ footer.page-footer {
   }
   .shareButton {
     display: none;
+  }
+  .view-switch {
+    display: block;
   }
   /* Overlay */
   .tourCarousel {

@@ -141,18 +141,21 @@ L.Control.GeoLocate = L.Control.extend({
          * Add control to map. Returns the container for the control.
          */
         onAdd: function (map) {
-            this._container = L.DomUtil.create('div',
-                'leaflet-control-locate leaflet-bar leaflet-control');
+            // this._container = VCO.Dom.create('div', 'switch');
+            this._container = VCO.Dom.create('li', 'bold');
 
             this._layer = this.options.layer || new L.LayerGroup();
             this._layer.addTo(map);
             this._event = undefined;
             this._prevBounds = null;
 
-            this._link = L.DomUtil.create('a', 'leaflet-bar-part leaflet-bar-part-single', this._container);
-            this._link.href = '#';
-            this._link.title = this.options.strings.title;
-            this._icon = L.DomUtil.create(this.options.iconElementTag, this.options.icon, this._link);
+            this._linkText = VCO.Dom.create('div', 'switch', this._container);
+            this._linkAnchor = VCO.Dom.create('a', 'collapsible-header', this._linkText);
+            this._linkAnchor.innerHTML = '<i class="material-icons">&#xE0C8;</i>Geolocation';
+            this._link = VCO.Dom.create('label', '', this._linkAnchor);
+            this._icon = VCO.Dom.create('input', 'geo-checkbox', this._link);
+            this._icon.type = 'checkbox';
+            this._iconText = VCO.Dom.create('span', 'lever', this._link);
 
             L.DomEvent
                 .on(this._link, 'click', L.DomEvent.stopPropagation)
@@ -176,15 +179,18 @@ L.Control.GeoLocate = L.Control.extend({
 
             if (this._active && !this._event) {
                 // click while requesting
+                console.log("stop");
                 this.stop();
             } else if (this._active && this._event !== undefined) {
                 var behavior = this._map.getBounds().contains(this._event.latlng) ?
                     this.options.clickBehavior.inView : this.options.clickBehavior.outOfView;
                 switch (behavior) {
                     case 'setView':
+                    console.log("setview");
                         this.setView();
                         break;
                     case 'stop':
+                    console.log("stopstop");
                         this.stop();
                         if (this.options.returnToPrevBounds) {
                             var f = this.options.flyTo ? this._map.flyToBounds : this._map.fitBounds;
@@ -196,6 +202,7 @@ L.Control.GeoLocate = L.Control.extend({
                 if (this.options.returnToPrevBounds) {
                   this._prevBounds = this._map.getBounds();
                 }
+                console.log("start");
                 this.start();
             }
 
@@ -218,6 +225,7 @@ L.Control.GeoLocate = L.Control.extend({
                     this.setView();
                 }
             }
+            this._icon.checked = true;
             this._updateContainerStyle();
         },
 
@@ -234,6 +242,7 @@ L.Control.GeoLocate = L.Control.extend({
             this._resetVariables();
 
             this._removeMarker();
+            this._icon.checked = false;
         },
 
         /**
@@ -486,22 +495,17 @@ L.Control.GeoLocate = L.Control.extend({
                 L.DomUtil.removeClass(this._container, "following");
                 L.DomUtil.addClass(this._container, "requesting");
 
-                L.DomUtil.removeClass(this._icon, this.options.icon);
-                L.DomUtil.addClass(this._icon, this.options.iconLoading);
             } else if (state == 'active') {
                 L.DomUtil.removeClass(this._container, "requesting");
                 L.DomUtil.removeClass(this._container, "following");
                 L.DomUtil.addClass(this._container, "active");
 
-                L.DomUtil.removeClass(this._icon, this.options.iconLoading);
-                L.DomUtil.addClass(this._icon, this.options.icon);
+
             } else if (state == 'following') {
                 L.DomUtil.removeClass(this._container, "requesting");
                 L.DomUtil.addClass(this._container, "active");
                 L.DomUtil.addClass(this._container, "following");
 
-                L.DomUtil.removeClass(this._icon, this.options.iconLoading);
-                L.DomUtil.addClass(this._icon, this.options.icon);
             }
         },
 
@@ -512,9 +516,6 @@ L.Control.GeoLocate = L.Control.extend({
             L.DomUtil.removeClass(this._container, "requesting");
             L.DomUtil.removeClass(this._container, "active");
             L.DomUtil.removeClass(this._container, "following");
-
-            L.DomUtil.removeClass(this._icon, this.options.iconLoading);
-            L.DomUtil.addClass(this._icon, this.options.icon);
         },
 
         /**

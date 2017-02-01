@@ -4,7 +4,7 @@
 
 L.Control.Zoom = L.Control.extend({
 	options: {
-		position: 'topleft',
+		position: 'bottomleft',
 		zoomInText: '+',
 		zoomInTitle: 'Zoom in',
 		zoomOutText: '-',

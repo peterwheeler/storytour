@@ -371,7 +371,7 @@ function tourDirective($timeout){
             maps: $scope.mapData
         };
 
-        $scope.storytour = new VCO.StoryTour("storytour", "translations/" + $scope.langData + "/" + $scope.jsonData + ".json", $scope.storymap_options);
+        element = new VCO.StoryTour("storytour", "translations/" + $scope.langData + "/" + $scope.jsonData + ".json", $scope.storymap_options);
             // $timeout(function() {
             //     $scope.test = new VCO.StoryTour.Slide($scope.storytour, "json/" + $scope.jsonData + ".json", $scope.storymap_options);
             // }, 1000);
@@ -389,6 +389,10 @@ function tourDirective($timeout){
                 $('.tooltipped').tooltip({delay: 50});
             });
         }, 500);
+
+        window.onresize = function(event) {
+            element.updateDisplay();
+        };
     }
     return {
         restrict: 'EA',

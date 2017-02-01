@@ -14559,7 +14559,7 @@
 			
 			L.Control.Zoom = L.Control.extend({
 				options: {
-					position: 'topleft',
+					position: 'bottomleft',
 					zoomInText: '+',
 					zoomInTitle: 'Zoom in',
 					zoomOutText: '-',
@@ -15983,18 +15983,21 @@
 	         * Add control to map. Returns the container for the control.
 	         */
 	        onAdd: function (map) {
-	            this._container = L.DomUtil.create('div',
-	                'leaflet-control-locate leaflet-bar leaflet-control');
+	            // this._container = VCO.Dom.create('div', 'switch');
+	            this._container = VCO.Dom.create('li', 'bold');
 	
 	            this._layer = this.options.layer || new L.LayerGroup();
 	            this._layer.addTo(map);
 	            this._event = undefined;
 	            this._prevBounds = null;
 	
-	            this._link = L.DomUtil.create('a', 'leaflet-bar-part leaflet-bar-part-single', this._container);
-	            this._link.href = '#';
-	            this._link.title = this.options.strings.title;
-	            this._icon = L.DomUtil.create(this.options.iconElementTag, this.options.icon, this._link);
+	            this._linkText = VCO.Dom.create('div', 'switch', this._container);
+	            this._linkAnchor = VCO.Dom.create('a', 'collapsible-header', this._linkText);
+	            this._linkAnchor.innerHTML = '<i class="material-icons">&#xE0C8;</i>Geolocation';
+	            this._link = VCO.Dom.create('label', '', this._linkAnchor);
+	            this._icon = VCO.Dom.create('input', 'geo-checkbox', this._link);
+	            this._icon.type = 'checkbox';
+	            this._iconText = VCO.Dom.create('span', 'lever', this._link);
 	
 	            L.DomEvent
 	                .on(this._link, 'click', L.DomEvent.stopPropagation)
@@ -16018,15 +16021,18 @@
 	
 	            if (this._active && !this._event) {
 	                // click while requesting
+	                console.log("stop");
 	                this.stop();
 	            } else if (this._active && this._event !== undefined) {
 	                var behavior = this._map.getBounds().contains(this._event.latlng) ?
 	                    this.options.clickBehavior.inView : this.options.clickBehavior.outOfView;
 	                switch (behavior) {
 	                    case 'setView':
+	                    console.log("setview");
 	                        this.setView();
 	                        break;
 	                    case 'stop':
+	                    console.log("stopstop");
 	                        this.stop();
 	                        if (this.options.returnToPrevBounds) {
 	                            var f = this.options.flyTo ? this._map.flyToBounds : this._map.fitBounds;
@@ -16038,6 +16044,7 @@
 	                if (this.options.returnToPrevBounds) {
 	                  this._prevBounds = this._map.getBounds();
 	                }
+	                console.log("start");
 	                this.start();
 	            }
 	
@@ -16060,6 +16067,7 @@
 	                    this.setView();
 	                }
 	            }
+	            this._icon.checked = true;
 	            this._updateContainerStyle();
 	        },
 	
@@ -16076,6 +16084,7 @@
 	            this._resetVariables();
 	
 	            this._removeMarker();
+	            this._icon.checked = false;
 	        },
 	
 	        /**
@@ -16328,22 +16337,17 @@
 	                L.DomUtil.removeClass(this._container, "following");
 	                L.DomUtil.addClass(this._container, "requesting");
 	
-	                L.DomUtil.removeClass(this._icon, this.options.icon);
-	                L.DomUtil.addClass(this._icon, this.options.iconLoading);
 	            } else if (state == 'active') {
 	                L.DomUtil.removeClass(this._container, "requesting");
 	                L.DomUtil.removeClass(this._container, "following");
 	                L.DomUtil.addClass(this._container, "active");
 	
-	                L.DomUtil.removeClass(this._icon, this.options.iconLoading);
-	                L.DomUtil.addClass(this._icon, this.options.icon);
+	
 	            } else if (state == 'following') {
 	                L.DomUtil.removeClass(this._container, "requesting");
 	                L.DomUtil.addClass(this._container, "active");
 	                L.DomUtil.addClass(this._container, "following");
 	
-	                L.DomUtil.removeClass(this._icon, this.options.iconLoading);
-	                L.DomUtil.addClass(this._icon, this.options.icon);
 	            }
 	        },
 	
@@ -16354,9 +16358,6 @@
 	            L.DomUtil.removeClass(this._container, "requesting");
 	            L.DomUtil.removeClass(this._container, "active");
 	            L.DomUtil.removeClass(this._container, "following");
-	
-	            L.DomUtil.removeClass(this._icon, this.options.iconLoading);
-	            L.DomUtil.addClass(this._icon, this.options.icon);
 	        },
 	
 	        /**
@@ -18018,55 +18019,34 @@
 	
 		/*	Create Mini Map
 		================================================== */
-		_createMiniMap: function() {
-			if (this.options.map_as_image) {
-				this.zoom_min_max.min = 0;
-			}
+		// _createMiniMap: function() {
+		// 	if (this.options.map_as_image) {
+		// 		this.zoom_min_max.min = 0;
+		// 	}
 	
-			if (!this.bounds_array) {
-				this.bounds_array = this._getAllMarkersBounds(this._markers);
-			}
+		// 	if (!this.bounds_array) {
+		// 		this.bounds_array = this._getAllMarkersBounds(this._markers);
+		// 	}
 	
-			this._tile_layer_mini = this._createTileLayer(this.options.map_type);
-			this._mini_map = new L.Control.MiniMap(this._tile_layer_mini, {		
-				width: 				150,
-				height: 			100,
-				position: 			"topleft",
-				bounds_array: 		this.bounds_array,
-				zoomLevelFixed: 	this.zoom_min_max.min,
-				zoomAnimation: 		true,
-				aimingRectOptions: 	{
-					fillColor: 		"#FFFFFF",
-					color: 			"#FFFFFF",
-					opacity: 		0.4,
-					weight: 		1,
-					stroke: 		true
-				}
-			}).addTo(this._map);
+		// 	this._tile_layer_mini = this._createAddTileLayer(this.options.map_type);
+		// 	this._mini_map = new L.Control.MiniMap(this._tile_layer_mini, {		
+		// 		width: 				150,
+		// 		height: 			100,
+		// 		position: 			"topleft",
+		// 		bounds_array: 		this.bounds_array,
+		// 		zoomLevelFixed: 	this.zoom_min_max.min,
+		// 		zoomAnimation: 		true,
+		// 		aimingRectOptions: 	{
+		// 			fillColor: 		"#FFFFFF",
+		// 			color: 			"#FFFFFF",
+		// 			opacity: 		0.4,
+		// 			weight: 		1,
+		// 			stroke: 		true
+		// 		}
+		// 	}).addTo(this._map);
 	
-			this._mini_map.getContainer().style.backgroundColor = this.options.map_background_color;
-		},
-	
-		/*	Create GeoLocator
-		================================================== */
-	
-		_createMiniMap: function() {
-			// if (this.options.map_as_image) {
-			// 	this.zoom_min_max.min = 0;
-			// }
-	
-			// if (!this.bounds_array) {
-			// 	this.bounds_array = this._getAllMarkersBounds(this._markers);
-			// }
-	
-			// this._tile_layer_mini = this._createTileLayer(this.options.map_type);
-			this._geolocator = new L.Control.GeoLocate({
-				position: 'topleft',
-			    strings: {
-			        title: "Turn on GeoLocator"
-			    }
-			}).addTo(this._map);
-		},
+		// 	this._mini_map.getContainer().style.backgroundColor = this.options.map_background_color;
+		// },
 	
 		/*	Create Background Map
 		================================================== */
@@ -18765,6 +18745,7 @@ VCO.StoryTour = VCO.Class.extend({
 			height: 				this._el.container.offsetHeight,
 			width: 					this._el.container.offsetWidth,
 			layout: 				"landscape", 	// portrait or landscape
+			layout_type:  			"map",
 			base_class: 			"",
 			default_bg_color: 		{r:256, g:256, b:256},
 			less_bounce: 			false, 			// Less map bounce when calculating zoom, false is good when there are clusters of tightly grouped markers
@@ -18773,7 +18754,8 @@ VCO.StoryTour = VCO.Class.extend({
 			call_to_action: 		false,
 			call_to_action_text: 	"",
 			menubar_height: 		0,
-			skinny_size: 			650,
+			small_size:             768,
+			skinny_size: 			375,
 			relative_date: 			false, 			// Use momentjs to show a relative date from the slide.text.date.created_time field
 			// animation
 			duration: 				1000,
@@ -19013,7 +18995,7 @@ VCO.StoryTour = VCO.Class.extend({
 		this._menubar = new VCO.MenuBar(this._el.menubar, this._menubarContainer, this.options);
 		this._el.menubarOpen = VCO.Dom.create('div', 'menubar-opener', this._menubarContainer);
 		this._el.menubarOpen.innerHTML = '<a data-activates="slide-out-menubar" id="menubar-collapse-id" class="menubar-collapse show-on-small"><i class="material-icons new-medium">&#xE429;</i></a>';
-		this._el.viewSwitch = VCO.Dom.create('div', 'view-switch hide-on-med-and-up', this._menubarContainer);
+		this._el.viewSwitch = VCO.Dom.create('div', 'view-switch', this._menubarContainer);
 		this._el.viewSwitch.innerHTML = '<a class="switch-view-layer show-on-small"><i class="material-icons new-medium">&#xE25D;</i></a>';
 
 		this.geo_layer = this._map.createGeolocation();
@@ -19149,7 +19131,6 @@ VCO.StoryTour = VCO.Class.extend({
 			// display_class += " vco-skinny";
 			// Map Offset
 			this._map.setMapOffset(0, 0);
-
 			if (this.options.layout_type == "map") {
 				this.options.map_height 		= (this.options.height);
 				this.options.storyslider_height = (this.options.height - this.options.map_height);
@@ -19360,6 +19341,9 @@ VCO.StoryTour = VCO.Class.extend({
 	_onLoaded: function() {
 		if (this._loaded.storyslider && this._loaded.map) {
 			this.fire("loaded", this.data);
+			if (this.options.layout == "portrait") {
+				this._updateDisplay(this.options.map_height, true, 7000, "story");
+			}
 		}
 	}
 });
@@ -19677,8 +19661,6 @@ VCO.Navigation = VCO.Class.extend({
 
 	initialize: function (storytour, data, options) {
 		var self = storytour;
-
-		console.log("asfdsakod");
 		return storytour;
 	}
 });

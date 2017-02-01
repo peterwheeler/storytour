@@ -304,6 +304,7 @@ VCO.StoryTour = VCO.Class.extend({
 			height: 				this._el.container.offsetHeight,
 			width: 					this._el.container.offsetWidth,
 			layout: 				"landscape", 	// portrait or landscape
+			layout_type:  			"map",
 			base_class: 			"",
 			default_bg_color: 		{r:256, g:256, b:256},
 			less_bounce: 			false, 			// Less map bounce when calculating zoom, false is good when there are clusters of tightly grouped markers
@@ -312,7 +313,8 @@ VCO.StoryTour = VCO.Class.extend({
 			call_to_action: 		false,
 			call_to_action_text: 	"",
 			menubar_height: 		0,
-			skinny_size: 			650,
+			small_size:             768,
+			skinny_size: 			375,
 			relative_date: 			false, 			// Use momentjs to show a relative date from the slide.text.date.created_time field
 			// animation
 			duration: 				1000,
@@ -552,7 +554,7 @@ VCO.StoryTour = VCO.Class.extend({
 		this._menubar = new VCO.MenuBar(this._el.menubar, this._menubarContainer, this.options);
 		this._el.menubarOpen = VCO.Dom.create('div', 'menubar-opener', this._menubarContainer);
 		this._el.menubarOpen.innerHTML = '<a data-activates="slide-out-menubar" id="menubar-collapse-id" class="menubar-collapse show-on-small"><i class="material-icons new-medium">&#xE429;</i></a>';
-		this._el.viewSwitch = VCO.Dom.create('div', 'view-switch hide-on-med-and-up', this._menubarContainer);
+		this._el.viewSwitch = VCO.Dom.create('div', 'view-switch', this._menubarContainer);
 		this._el.viewSwitch.innerHTML = '<a class="switch-view-layer show-on-small"><i class="material-icons new-medium">&#xE25D;</i></a>';
 
 		this.geo_layer = this._map.createGeolocation();
@@ -688,7 +690,6 @@ VCO.StoryTour = VCO.Class.extend({
 			// display_class += " vco-skinny";
 			// Map Offset
 			this._map.setMapOffset(0, 0);
-
 			if (this.options.layout_type == "map") {
 				this.options.map_height 		= (this.options.height);
 				this.options.storyslider_height = (this.options.height - this.options.map_height);
@@ -899,6 +900,9 @@ VCO.StoryTour = VCO.Class.extend({
 	_onLoaded: function() {
 		if (this._loaded.storyslider && this._loaded.map) {
 			this.fire("loaded", this.data);
+			if (this.options.layout == "portrait") {
+				this._updateDisplay(this.options.map_height, true, 7000, "story");
+			}
 		}
 	}
 });
@@ -1216,8 +1220,6 @@ VCO.Navigation = VCO.Class.extend({
 
 	initialize: function (storytour, data, options) {
 		var self = storytour;
-
-		console.log("asfdsakod");
 		return storytour;
 	}
 });

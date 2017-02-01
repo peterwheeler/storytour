@@ -47,55 +47,34 @@ VCO.Map.Leaflet = VCO.Map.extend({
 
 	/*	Create Mini Map
 	================================================== */
-	_createMiniMap: function() {
-		if (this.options.map_as_image) {
-			this.zoom_min_max.min = 0;
-		}
+	// _createMiniMap: function() {
+	// 	if (this.options.map_as_image) {
+	// 		this.zoom_min_max.min = 0;
+	// 	}
 
-		if (!this.bounds_array) {
-			this.bounds_array = this._getAllMarkersBounds(this._markers);
-		}
+	// 	if (!this.bounds_array) {
+	// 		this.bounds_array = this._getAllMarkersBounds(this._markers);
+	// 	}
 
-		this._tile_layer_mini = this._createTileLayer(this.options.map_type);
-		this._mini_map = new L.Control.MiniMap(this._tile_layer_mini, {		
-			width: 				150,
-			height: 			100,
-			position: 			"topleft",
-			bounds_array: 		this.bounds_array,
-			zoomLevelFixed: 	this.zoom_min_max.min,
-			zoomAnimation: 		true,
-			aimingRectOptions: 	{
-				fillColor: 		"#FFFFFF",
-				color: 			"#FFFFFF",
-				opacity: 		0.4,
-				weight: 		1,
-				stroke: 		true
-			}
-		}).addTo(this._map);
+	// 	this._tile_layer_mini = this._createAddTileLayer(this.options.map_type);
+	// 	this._mini_map = new L.Control.MiniMap(this._tile_layer_mini, {		
+	// 		width: 				150,
+	// 		height: 			100,
+	// 		position: 			"topleft",
+	// 		bounds_array: 		this.bounds_array,
+	// 		zoomLevelFixed: 	this.zoom_min_max.min,
+	// 		zoomAnimation: 		true,
+	// 		aimingRectOptions: 	{
+	// 			fillColor: 		"#FFFFFF",
+	// 			color: 			"#FFFFFF",
+	// 			opacity: 		0.4,
+	// 			weight: 		1,
+	// 			stroke: 		true
+	// 		}
+	// 	}).addTo(this._map);
 
-		this._mini_map.getContainer().style.backgroundColor = this.options.map_background_color;
-	},
-
-	/*	Create GeoLocator
-	================================================== */
-
-	_createMiniMap: function() {
-		// if (this.options.map_as_image) {
-		// 	this.zoom_min_max.min = 0;
-		// }
-
-		// if (!this.bounds_array) {
-		// 	this.bounds_array = this._getAllMarkersBounds(this._markers);
-		// }
-
-		// this._tile_layer_mini = this._createTileLayer(this.options.map_type);
-		this._geolocator = new L.Control.GeoLocate({
-			position: 'topleft',
-		    strings: {
-		        title: "Turn on GeoLocator"
-		    }
-		}).addTo(this._map);
-	},
+	// 	this._mini_map.getContainer().style.backgroundColor = this.options.map_background_color;
+	// },
 
 	/*	Create Background Map
 	================================================== */

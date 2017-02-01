@@ -5,7 +5,7 @@
             </a>
         </div>
         <div class="menu-header">
-            <a ui-sref="app" class="brand-logo center logo-container">
+            <a ui-sref="app.home" class="brand-logo center logo-container">
                 <h3 class="center" translate>{{'menu.title'}}</h3>
             </a>
         </div>
@@ -35,7 +35,7 @@
                 <div class="collapsible-body">
                     <ul>
                         <li ng-repeat="map in tourList">
-                            <a ui-sref="app.tour.{{map.url}}" translate="menu.tour-{{map.id}}"></a>
+                            <a ui-sref="app.tour.{{map.id}}" translate="menu.tour-{{map.id}}"></a>
                         </li>
                     </ul>
                 </div>
